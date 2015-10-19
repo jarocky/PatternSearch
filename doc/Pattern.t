@@ -1,0 +1,1 @@
+nad waæpanow¹. — Bez przestanku o tej mojej g³owie gadaj¹. Mogliby daæ spokój. Co do rady, s¹ dwie: albo niech Micha³ Basiê bier
