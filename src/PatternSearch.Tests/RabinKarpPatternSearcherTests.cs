@@ -10,7 +10,7 @@ namespace PatternSearch.Tests
   {
     private readonly ByteStringEncoder _encoder = new ByteStringEncoder();
     
-    private readonly RabinKarpPatternSearcher _searcher = new RabinKarpPatternSearcher(new SimpleHashingService());
+    private readonly RabinKarpPatternSearcher _searcher = new RabinKarpPatternSearcher(new HashingService(256, 13));
     
     [Test]
     public void Search_PatternIsNull_ThrowArgumentNullException()
@@ -96,6 +96,13 @@ namespace PatternSearch.Tests
     [TestCase("co się i", "t co się i")]
     [TestCase("co się i", "co się i z")]
     [TestCase("co się i", "i co się i z")]
+    [TestCase("co się i", " co się i z")]
+    [TestCase("co się i", "i co się i ")]
+    [TestCase("co się i", " co się i ")]
+    [TestCase(" co się i ", " co się i ")]
+    [TestCase(" co się i ", "i co się i z")]
+    [TestCase(" co się i ", " co się i z")]
+    [TestCase(" co się i ", "i co się i ")]
     public void Search_PatternExistsOnceInText_ReturnOneOccurrece(string pattern, string text)
     {
       var result = _searcher.Search(_encoder.GetBytes(pattern), _encoder.GetBytes(text));

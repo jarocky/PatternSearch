@@ -47,7 +47,6 @@
     <Compile Include="Brute\Brute2DPatternSearcher.cs" />
     <Compile Include="Brute\BrutePatternSearcher.cs" />
     <Compile Include="RabinKarp\HashingService.cs" />
-    <Compile Include="RabinKarp\SimpleHashingService.cs" />
     <Compile Include="I2DPatternSearcher.cs" />
     <Compile Include="IPatternSearcher.cs" />
     <Compile Include="RabinKarp\IHashingService.cs" />

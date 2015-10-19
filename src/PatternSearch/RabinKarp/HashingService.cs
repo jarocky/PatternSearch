@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace PatternSearch.RabinKarp
+﻿namespace PatternSearch.RabinKarp
 {
   public class HashingService : IHashingService
   {
@@ -18,7 +16,7 @@ namespace PatternSearch.RabinKarp
       long sum = 0;
       for (var i = 0; i < t.Length; i++)
       {
-        sum += (t[i] * (long)Math.Pow(_alphabetSize, t.Length - i - 1) %  _moduloPrime);
+        sum += t[i] * PowMod(_alphabetSize, t.Length - i - 1, _moduloPrime) % _moduloPrime;
       }
 
       return sum % _moduloPrime;
@@ -26,12 +24,27 @@ namespace PatternSearch.RabinKarp
 
     public long HashRoll(int patternLength, long hash, long firstElementToRemove, long lastElementToAdd)
     {
-      var hashByteToRemove = (firstElementToRemove * (long)Math.Pow(_alphabetSize, patternLength - 1) % _moduloPrime);
+      var hashByteToRemove = firstElementToRemove * PowMod(_alphabetSize, patternLength - 1, _moduloPrime) % _moduloPrime;;
       var hashWithoutByteToRemove = hash - hashByteToRemove;
       hashWithoutByteToRemove = hashWithoutByteToRemove < 0
         ? _moduloPrime + hashWithoutByteToRemove
         : hashWithoutByteToRemove;
       return ((hashWithoutByteToRemove * _alphabetSize + lastElementToAdd) % _moduloPrime);
+    }
+
+    public long PowMod(long number, long exp, long modulus)
+    {
+      long result = 1;
+      while (exp > 0)
+      {
+        if ((exp & 1) != 0)
+        {
+          result = (result * number) % modulus;
+        }
+        number = (number * number) % modulus;
+        exp >>= 1;
+      }
+      return result;
     }
   }
 }
