@@ -125,11 +125,76 @@ namespace PatternSearch.Tests.Comparison
     [TestCase("ABC", "AB", 2)]
     [TestCase("ABC", "BC", 2)]
     [TestCase("ABAB", "BA", 2)]
-    public void Compare_AreTheSameText_ReturnProperIndicesCount(string firstText, string secondText, int minLength)
+    [TestCase("ABAB", "CBA", 2)]
+    [TestCase("ABAB", "BAD", 2)]
+    [TestCase("ABAB", "CBAD", 2)]
+    public void Compare_AreTheSameText_ReturnOneOccurrence(string firstText, string secondText, int minLength)
     {
       var result = _comparer.Compare(_encoder.GetBytes(firstText), _encoder.GetBytes(secondText), minLength);
 
       Assert.AreEqual(1, result.Indices.Count);
+    }
+
+    [TestCase("ABABA", "ABA", 3)]
+    [TestCase("ABABA", "KABA", 3)]
+    [TestCase("ABABA", "ABAC", 3)]
+    [TestCase("ABABA", "KABAC", 3)]
+    [TestCase("KABABA", "ABA", 3)]
+    [TestCase("ABABAC", "ABA", 3)]
+    [TestCase("KABABAC", "ABA", 3)]
+    [TestCase("KABABAC", "LABA", 3)]
+    [TestCase("KABABAC", "ABAM", 3)]
+    [TestCase("KABABAC", "LABAM", 3)]
+    [TestCase("ABA", "ABABA", 3)]
+    [TestCase("KABA", "ABABA", 3)]
+    [TestCase("ABAC", "ABABA", 3)]
+    [TestCase("KABAC", "ABABA", 3)]
+    [TestCase("ABA", "KABABA", 3)]
+    [TestCase("ABA", "ABABAC", 3)]
+    [TestCase("ABA", "KABABAC", 3)]
+    [TestCase("LABA", "KABABAC", 3)]
+    [TestCase("ABAM", "KABABAC", 3)]
+    [TestCase("LABAM", "KABABAC", 3)]
+    public void Compare_AreTheSameText_ReturnTwoOccurrences(string firstText, string secondText, int minLength)
+    {
+      var result = _comparer.Compare(_encoder.GetBytes(firstText), _encoder.GetBytes(secondText), minLength);
+
+      Assert.AreEqual(2, result.Indices.Count);
+    }
+
+    [TestCase("ABCWEWYRABCWGROWEABCW", "KLHDSWOPSASBBHJLASABCWDIPHBSDGJKLSDBD", 4)]
+    [TestCase("ABCWEWYYRABCWGROWEABCW", "KLHDSWOPSASBBHJLASABCWYDIPHBSDGJKLSDBD", 4)]
+    public void Compare_AreTheSameLongerText_ReturnProperIndicesCount(string firstText, string secondText, int minLength)
+    {
+      var result = _comparer.Compare(_encoder.GetBytes(firstText), _encoder.GetBytes(secondText), minLength);
+
+      Assert.AreEqual(3, result.Indices.Count);
+    }
+
+    [TestCase("ABCWEWYRABCWGROWEABCW", "KLHDSWOPSASBBHJLASABCWDIPHBSDGJKLSDBD", 4)]
+    [TestCase("ABCWEWYRABCWGROWEABCWY", "KLHDSWOPSASBBHJLASABCWYDIPHBSDGJKLSDBD", 4)]
+    public void Compare_AreTheSameLongerText_ReturnProperIndices(string firstText, string secondText, int minLength)
+    {
+      var result = _comparer.Compare(_encoder.GetBytes(firstText), _encoder.GetBytes(secondText), minLength);
+
+      Assert.AreEqual(0, result.Indices.Keys.ElementAt(0).Item1);
+      Assert.AreEqual(18, result.Indices.Keys.ElementAt(0).Item2);
+      Assert.AreEqual(8, result.Indices.Keys.ElementAt(1).Item1);
+      Assert.AreEqual(18, result.Indices.Keys.ElementAt(1).Item2);
+      Assert.AreEqual(17, result.Indices.Keys.ElementAt(2).Item1);
+      Assert.AreEqual(18, result.Indices.Keys.ElementAt(2).Item2);
+    }
+
+    [TestCase("ABCWEWYRABCWGROWEQABCW", "KLHDSWOPSASBBHJLASQABCWDIPHBSDGJKLSDBD", 4)]
+    [TestCase("ABCWEWYRABCWGROWEQABCWY", "KLHDSWOPSASBBHJLASABCWYDIPHBSDGJKLSDBD", 4)]
+    [TestCase("ABCWEWYRABCWGROWEQABCWYX", "KLHDSWOPSASBBHJLASABCWYDIPHBSDGJKLSDBD", 4)]
+    public void Compare_AreTheSameLongerText_ReturnProperLenghts(string firstText, string secondText, int minLength)
+    {
+      var result = _comparer.Compare(_encoder.GetBytes(firstText), _encoder.GetBytes(secondText), minLength);
+
+      Assert.AreEqual(4, result.Indices.Values.ElementAt(0));
+      Assert.AreEqual(4, result.Indices.Values.ElementAt(1));
+      Assert.AreEqual(5, result.Indices.Values.ElementAt(2));
     }
   }
 }
