@@ -3,7 +3,7 @@ using NUnit.Framework;
 using PatternSearch.Common;
 using PatternSearch.RabinKarp;
 
-namespace PatternSearch.Tests
+namespace PatternSearch.Tests.Search
 {
   [TestFixture]
   public class PatternSearcher2DTests

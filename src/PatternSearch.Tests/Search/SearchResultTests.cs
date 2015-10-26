@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace PatternSearch.Tests
+namespace PatternSearch.Tests.Search
 {
   [TestFixture]
   public class SearchResultTests

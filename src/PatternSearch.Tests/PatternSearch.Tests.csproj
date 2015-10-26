@@ -45,11 +45,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PatternSearcher2DTests.cs" />
-    <Compile Include="PatternSearcherTests.cs" />
+    <Compile Include="Comparison\ComparerTests.cs" />
+    <Compile Include="Comparison\ComparisonResultTests.cs" />
+    <Compile Include="Search\PatternSearcher2DTests.cs" />
+    <Compile Include="Search\PatternSearcherTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RabinKarpPatternSearcherTests.cs" />
-    <Compile Include="SearchResultTests.cs" />
+    <Compile Include="Search\RabinKarpPatternSearcherTests.cs" />
+    <Compile Include="Search\SearchResultTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">
@@ -61,11 +63,16 @@
       <Project>{695A8C9A-EA39-4108-99E3-701DEC1BA0E4}</Project>
       <Name>PatternSearch.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PatternSearch.Comparison\PatternSearch.Comparison.csproj">
+      <Project>{db7aea76-b5a6-463c-9b4c-febde3b41477}</Project>
+      <Name>PatternSearch.Comparison</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PatternSearch\PatternSearch.csproj">
       <Project>{62d5878d-be2d-4499-9a96-72ae6a2913a8}</Project>
       <Name>PatternSearch</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

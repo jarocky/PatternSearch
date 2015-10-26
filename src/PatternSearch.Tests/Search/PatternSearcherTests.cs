@@ -3,7 +3,7 @@ using NUnit.Framework;
 using PatternSearch.Brute;
 using PatternSearch.Common;
 
-namespace PatternSearch.Tests
+namespace PatternSearch.Tests.Search
 {
   [TestFixture(typeof(BrutePatternSearcher))]
   public class PatternSearcherTests<T> where T : IPatternSearcher, new()
