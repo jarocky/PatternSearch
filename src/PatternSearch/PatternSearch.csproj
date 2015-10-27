@@ -54,6 +54,8 @@
     <Compile Include="RabinKarp\RabinKarpPatternSearcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SearchResult.cs" />
+    <Compile Include="Suffix\Node.cs" />
+    <Compile Include="Suffix\SuffixTree.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
