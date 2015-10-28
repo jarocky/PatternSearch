@@ -6,14 +6,19 @@ namespace PatternSearch.Suffix
   public class SuffixTree : ISuffixTree
   {
     private readonly Node _tree = new Node();
-    private readonly string _text;
+    private readonly byte[] _text;
     private bool _initialized;
     private int _buildingTreeComparisonsCount;
 
     public int LastFindingComparisonsCount { get; private set; }
 
-    public SuffixTree(string text)
+    public SuffixTree(byte[] text)
     {
+      if (text == null)
+      {
+        throw new ArgumentNullException("text", "Cannot be null");
+      }
+
       _text = text;
     }
 
@@ -36,7 +41,7 @@ namespace PatternSearch.Suffix
       return comparisonsCount;
     }
 
-    private int InsertSuffix(string text, int from)
+    private int InsertSuffix(byte[] text, int from)
     {
       var currentComparisonsCount = 0;
       var currentNode = _tree;
@@ -58,7 +63,7 @@ namespace PatternSearch.Suffix
       throw new InvalidOperationException(string.Format("Suffix tree corruption. Text={0}, From={1}", text, from));
     }
 
-    public IEnumerable<int> Find(string pattern)
+    public IEnumerable<int> Find(byte[] pattern)
     {
       if (!_initialized)
       {
@@ -71,27 +76,28 @@ namespace PatternSearch.Suffix
       {
         yield break;
       }
+
       foreach (var n2 in VisitTree(findingResult.Result))
       {
         yield return n2.Index;
       }
     }
 
-    private FindingResult<Node> FindNode(string s)
+    private FindingResult<Node> FindNode(byte[] pattern)
     {
       var currentComparisonsCount = 0;
       var currentNode = _tree;
-      for (int i = 0; i < s.Length; ++i)
+      for (int i = 0; i < pattern.Length; ++i)
       {
-        var character = s[i];
+        var character = pattern[i];
         var findingResult = FindAnyChild(currentNode, character);
         currentComparisonsCount += findingResult.ComparisonsCount;
         if (!findingResult.CharacterExists)
         {
-          for (var j = i; j < s.Length; ++j)
+          for (var j = i; j < pattern.Length; ++j)
           {
             currentComparisonsCount++;
-            if (_text[currentNode.Index + j] != s[j])
+            if (_text[currentNode.Index + j] != pattern[j])
             {
               return new FindingResult<Node>
               {
@@ -107,6 +113,7 @@ namespace PatternSearch.Suffix
             ComparisonsCount = currentComparisonsCount
           };
         }
+
         currentNode = currentNode.Children[character];
       }
 
@@ -130,7 +137,7 @@ namespace PatternSearch.Suffix
       yield return n;
     }
 
-    private static FindingAnyChildResult FindAnyChild(Node currentNode, char character)
+    private static FindingAnyChildResult FindAnyChild(Node currentNode, byte character)
     {
       var comparisonsCount = 0;
       foreach (var currentCharacter in currentNode.Children.Keys)

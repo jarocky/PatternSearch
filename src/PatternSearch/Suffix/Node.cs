@@ -5,6 +5,6 @@ namespace PatternSearch.Suffix
   internal class Node
   {
     public int Index = -1;
-    public Dictionary<char, Node> Children = new Dictionary<char, Node>();
+    public Dictionary<int, Node> Children = new Dictionary<int, Node>();
   }
 }

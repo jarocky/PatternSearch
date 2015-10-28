@@ -1,7 +1,9 @@
 ﻿using System.IO;
+using System.Linq;
 using PatternSearch.Brute;
 using PatternSearch.Common;
 using PatternSearch.RabinKarp;
+using PatternSearch.Suffix;
 
 namespace PatternSearch.Console.Tests
 {
@@ -12,8 +14,8 @@ namespace PatternSearch.Console.Tests
       var encoder = new ByteStringEncoder();
       var operationTimeTester = new OperationTimeTester();
 
-      var text = File.ReadAllBytes(@"..\doc\pan_wolodyjowski_line.t");
-      var pattern = File.ReadAllBytes(@"..\doc\Pattern.t");
+      var text = File.ReadAllBytes(@"..\doc\pan_wolodyjowski_line_kopia.t");
+      var pattern = File.ReadAllBytes(@"..\doc\Pattern_kopia.t");
       var patternString = encoder.GetString(pattern);
       var patternSize = pattern.Length;
       var textSize = text.Length;
@@ -33,6 +35,19 @@ namespace PatternSearch.Console.Tests
       var rabinkarpModulo2147483647 = new RabinKarpPatternSearcher(new HashingService(256, 2147483647));
       result = operationTimeTester.Test(rabinkarpModulo2147483647.Search, pattern, text);
       Show("Pan Wołodyjowski", textSize, "Rabin-Karp with hashing modulo 2147483647", patternString, patternSize, result);
+
+      var suffixTree = new SuffixTree(text);
+      var buildingTreeComparisonsCount = suffixTree.Initialize();
+      var indices = suffixTree.Find(pattern).ToArray();
+      var findingComparisonsCount = suffixTree.LastFindingComparisonsCount;
+
+      foreach (var index in result.OperationResult.Indices)
+      {
+        if (!indices.Any(i => i == index))
+        {
+          System.Console.Out.WriteLine("Missing index {0}", index);
+        }
+      }
     }
 
     private static void Show(

@@ -6,6 +6,6 @@ namespace PatternSearch.Suffix
   {
     int LastFindingComparisonsCount { get; }
     int Initialize();
-    IEnumerable<int> Find(string pattern);
+    IEnumerable<int> Find(byte[] pattern);
   }
 }
