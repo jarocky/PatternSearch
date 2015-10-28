@@ -12,6 +12,7 @@ namespace PatternSearch.Tests.Suffix
     {
       var text = "banana";
       var t = new SuffixTree(text);
+      t.Initialize();
       var results = t.Find("an").ToArray();
       Assert.AreEqual(2, results.Length);
       Assert.AreEqual(1, results[0]);
