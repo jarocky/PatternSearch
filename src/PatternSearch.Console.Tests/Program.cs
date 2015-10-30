@@ -37,7 +37,7 @@ namespace PatternSearch.Console.Tests
       Show("Pan Wołodyjowski", textSize, "Rabin-Karp with hashing modulo 2147483647", patternString, patternSize, result);
 
       var suffixTree = new SuffixTree(text);
-      var buildingTreeComparisonsCount = suffixTree.Initialize();
+      suffixTree.Initialize();
       var indices = suffixTree.Find(pattern).ToArray();
       var findingComparisonsCount = suffixTree.LastFindingComparisonsCount;
 
@@ -45,7 +45,15 @@ namespace PatternSearch.Console.Tests
       {
         if (!indices.Any(i => i == index))
         {
-          System.Console.Out.WriteLine("Missing index {0}", index);
+          System.Console.Out.WriteLine("Missing index {0} indices", index);
+        }
+      }
+
+      foreach (var index in indices)
+      {
+        if (!result.OperationResult.Indices.Any(i => i == index))
+        {
+          System.Console.Out.WriteLine("Missing index {0} good table", index);
         }
       }
     }

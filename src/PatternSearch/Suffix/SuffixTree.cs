@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PatternSearch.Suffix
 {
   public class SuffixTree : ISuffixTree
   {
-    private readonly Node _tree = new Node();
+    private readonly Node _root = new Node();
     private readonly byte[] _text;
     private bool _initialized;
-    private int _buildingTreeComparisonsCount;
 
     public int LastFindingComparisonsCount { get; private set; }
 
@@ -22,29 +22,25 @@ namespace PatternSearch.Suffix
       _text = text;
     }
 
-    public int Initialize()
+    public void Initialize()
     {
       if (_initialized)
       {
-        return _buildingTreeComparisonsCount;
+        return;
       }
 
-      var comparisonsCount = 0;
       for (var i = _text.Length - 1; i >= 0; --i)
       {
-        comparisonsCount += InsertSuffix(_text, i);
+        InsertSuffix(_text, i);
       }
       
       _initialized = true;
-      _buildingTreeComparisonsCount = comparisonsCount;
-
-      return comparisonsCount;
     }
 
     private int InsertSuffix(byte[] text, int from)
     {
       var currentComparisonsCount = 0;
-      var currentNode = _tree;
+      var currentNode = _root;
       for (var i = from; i < text.Length; ++i)
       {
         var character = text[i];
@@ -54,13 +50,11 @@ namespace PatternSearch.Suffix
         {
           var n = new Node() { Index = from };
           currentNode.Children.Add(character, n);
-          
-          return currentComparisonsCount;
         }
         currentNode = currentNode.Children[character];
       }
-      
-      throw new InvalidOperationException(string.Format("Suffix tree corruption. Text={0}, From={1}", text, from));
+      currentNode.Children.Add(0, new Node());
+      return currentComparisonsCount;
     }
 
     public IEnumerable<int> Find(byte[] pattern)
@@ -74,19 +68,23 @@ namespace PatternSearch.Suffix
       LastFindingComparisonsCount = findingResult.ComparisonsCount;
       if (findingResult.Result == null)
       {
-        yield break;
+        return new List<int>();
       }
 
-      foreach (var n2 in VisitTree(findingResult.Result))
+      if (findingResult.Result.Children.Count == 1 && findingResult.Result.Children[0].Index == -1)
       {
-        yield return n2.Index;
+        return new List<int> {findingResult.Result.Index};
       }
+
+      var indices = VisitTree(findingResult.Result.Children.Values.Where(v => v.Index != -1));
+
+      return indices;
     }
 
     private FindingResult<Node> FindNode(byte[] pattern)
     {
       var currentComparisonsCount = 0;
-      var currentNode = _tree;
+      var currentNode = _root;
       for (int i = 0; i < pattern.Length; ++i)
       {
         var character = pattern[i];
@@ -94,22 +92,9 @@ namespace PatternSearch.Suffix
         currentComparisonsCount += findingResult.ComparisonsCount;
         if (!findingResult.CharacterExists)
         {
-          for (var j = i; j < pattern.Length; ++j)
-          {
-            currentComparisonsCount++;
-            if (_text[currentNode.Index + j] != pattern[j])
-            {
-              return new FindingResult<Node>
-              {
-                Result = null,
-                ComparisonsCount = currentComparisonsCount
-              };
-            }
-          }
-
           return new FindingResult<Node>
           {
-            Result = currentNode,
+            Result = null,
             ComparisonsCount = currentComparisonsCount
           };
         }
@@ -124,18 +109,22 @@ namespace PatternSearch.Suffix
       };
     }
 
-    private static IEnumerable<Node> VisitTree(Node n)
+    private static List<int> VisitTree(IEnumerable<Node> children)
     {
-      foreach (var n1 in n.Children.Values)
+      var r = new List<int>();
+      foreach (var n1 in children)
       {
-        foreach (var n2 in VisitTree(n1))
+        if (n1.Children.ContainsKey(0))
         {
-          yield return n2;
+          r.Add(n1.Index);
         }
+        
+        r.AddRange(VisitTree(n1.Children.Values.Where(v => v.Index != -1)));
       }
-
-      yield return n;
+      return r;
     }
+
+
 
     private static FindingAnyChildResult FindAnyChild(Node currentNode, byte character)
     {
