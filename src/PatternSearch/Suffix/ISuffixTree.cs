@@ -5,7 +5,7 @@ namespace PatternSearch.Suffix
   public interface ISuffixTree
   {
     int LastFindingComparisonsCount { get; }
-    void Initialize();
+    int Initialize();
     IEnumerable<int> Find(byte[] pattern);
   }
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace PatternSearch.Suffix
 {
@@ -9,6 +8,7 @@ namespace PatternSearch.Suffix
     private readonly Node _root = new Node();
     private readonly byte[] _text;
     private bool _initialized;
+    private int _buildingComparisonsCount;
 
     public int LastFindingComparisonsCount { get; private set; }
 
@@ -16,25 +16,29 @@ namespace PatternSearch.Suffix
     {
       if (text == null)
       {
-        throw new ArgumentNullException("text", "Cannot be null");
+        throw new ArgumentNullException(nameof(text), "Cannot be null");
       }
 
       _text = text;
     }
 
-    public void Initialize()
+    public int Initialize()
     {
       if (_initialized)
       {
-        return;
+        return _buildingComparisonsCount;
       }
 
+      var currentComparisons = 0;
       for (var i = _text.Length - 1; i >= 0; --i)
       {
-        InsertSuffix(_text, i);
+        currentComparisons += InsertSuffix(_text, i);
       }
       
       _initialized = true;
+      _buildingComparisonsCount = currentComparisons;
+
+      return _buildingComparisonsCount;
     }
 
     private int InsertSuffix(byte[] text, int from)
@@ -64,21 +68,28 @@ namespace PatternSearch.Suffix
         throw new InvalidOperationException("Tree is not initialized. Use Initialize method before finding.");
       }
 
+      var results = new List<int>();
       var findingResult = FindNode(pattern);
       LastFindingComparisonsCount = findingResult.ComparisonsCount;
       if (findingResult.Result == null)
       {
-        return new List<int>();
+        return results;
       }
 
-      if (findingResult.Result.Children.Count == 1 && findingResult.Result.Children[0].Index == -1)
+      if (findingResult.Result.Children.ContainsKey(0))
       {
-        return new List<int> {findingResult.Result.Index};
+        results.Add(findingResult.Result.Index);
+
+        if (findingResult.Result.Children.Count == 1)
+        {
+          return results;
+        }
       }
 
-      var indices = VisitTree(findingResult.Result.Children.Values.Where(v => v.Index != -1));
+      var indices = VisitTree(findingResult.Result.Children.Values);
+      results.AddRange(indices);
 
-      return indices;
+      return results;
     }
 
     private FindingResult<Node> FindNode(byte[] pattern)
@@ -119,7 +130,7 @@ namespace PatternSearch.Suffix
           r.Add(n1.Index);
         }
         
-        r.AddRange(VisitTree(n1.Children.Values.Where(v => v.Index != -1)));
+        r.AddRange(VisitTree(n1.Children.Values));
       }
       return r;
     }

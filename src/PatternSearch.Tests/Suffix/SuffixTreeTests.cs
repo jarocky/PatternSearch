@@ -84,17 +84,27 @@ namespace PatternSearch.Tests.Suffix
       tree.Initialize();
       var results = tree.Find(_encoder.GetBytes("an")).ToArray();
       Assert.AreEqual(2, results.Length);
-      Assert.AreEqual(1, results[0]);
-      Assert.AreEqual(3, results[1]);
+      Assert.AreEqual(3, results[0]);
+      Assert.AreEqual(1, results[1]);
     }
 
     [Test]
-    public void Find()
+    public void Find_sba()
     {
       const string text = "sasbasaasba";
       var tree = new SuffixTree(_encoder.GetBytes(text));
       tree.Initialize();
       var results = tree.Find(_encoder.GetBytes("sba")).ToArray();
+      Assert.AreEqual(2, results.Length);
+    }
+
+    [Test]
+    public void Find_sa()
+    {
+      const string text = "sasa";
+      var tree = new SuffixTree(_encoder.GetBytes(text));
+      tree.Initialize();
+      var results = tree.Find(_encoder.GetBytes("sa")).ToArray();
       Assert.AreEqual(2, results.Length);
     }
   }
