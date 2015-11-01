@@ -10,8 +10,6 @@ namespace PatternSearch.Suffix
     private bool _initialized;
     private int _buildingComparisonsCount;
 
-    public int LastFindingComparisonsCount { get; private set; }
-
     public SuffixTree(byte[] text)
     {
       if (text == null)
@@ -61,7 +59,7 @@ namespace PatternSearch.Suffix
       return currentComparisonsCount;
     }
 
-    public IEnumerable<int> Find(byte[] pattern)
+    public SearchResult Find(byte[] pattern)
     {
       if (!_initialized)
       {
@@ -70,10 +68,13 @@ namespace PatternSearch.Suffix
 
       var results = new List<int>();
       var findingResult = FindNode(pattern);
-      LastFindingComparisonsCount = findingResult.ComparisonsCount;
       if (findingResult.Result == null)
       {
-        return results;
+        return new SearchResult
+        {
+          Indices = results.ToArray(),
+          ComparisonsCount = findingResult.ComparisonsCount
+        };
       }
 
       if (findingResult.Result.Children.ContainsKey(0))
@@ -82,14 +83,22 @@ namespace PatternSearch.Suffix
 
         if (findingResult.Result.Children.Count == 1)
         {
-          return results;
+          return new SearchResult
+          {
+            Indices = results.ToArray(),
+            ComparisonsCount = findingResult.ComparisonsCount
+          };
         }
       }
 
       var indices = VisitTree(findingResult.Result.Children.Values);
       results.AddRange(indices);
 
-      return results;
+      return new SearchResult
+      {
+        Indices = results.ToArray(),
+        ComparisonsCount = findingResult.ComparisonsCount
+      };
     }
 
     private FindingResult<Node> FindNode(byte[] pattern)

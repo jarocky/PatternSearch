@@ -22,9 +22,8 @@ namespace PatternSearch.Tests.Suffix
     {
       const string text = "banana";
       var tree = new SuffixTree(_encoder.GetBytes(text));
-      tree.Initialize();
-      Assert.True(true);
-      //Assert.Greater(comparisonsCount, 0);
+      var comparisonsCount = tree.Initialize();
+      Assert.Greater(comparisonsCount, 0);
     }
     
     [Test]
@@ -33,7 +32,51 @@ namespace PatternSearch.Tests.Suffix
       const string text = "banana";
       var tree = new SuffixTree(_encoder.GetBytes(text));
       
-      Assert.Throws<InvalidOperationException>(() => tree.Find(_encoder.GetBytes("an")).ToArray());
+      Assert.Throws<InvalidOperationException>(() => tree.Find(_encoder.GetBytes("an")));
+    }
+
+    [TestCase("aaa", "c")]
+    [TestCase("aba", "c")]
+    [TestCase("abb", "c")]
+    [TestCase("baa", "c")]
+    [TestCase(" aaa", "c")]
+    [TestCase("aaa ", "c")]
+    [TestCase(" aaa ", "c")]
+    [TestCase("banana", "c")]
+    [TestCase("ban ana", "c")]
+    [TestCase(" ban ana", "c")]
+    [TestCase("ban ana ", "c")]
+    [TestCase(" ban ana ", "c")]
+    [TestCase("aaa", "cc")]
+    [TestCase("aba", "cc")]
+    [TestCase("abb", "cc")]
+    [TestCase("baa", "cc")]
+    [TestCase(" aaa", "cc")]
+    [TestCase("aaa ", "cc")]
+    [TestCase(" aaa ", "cc")]
+    [TestCase("banana", "cc")]
+    [TestCase("ban ana", "cc")]
+    [TestCase(" ban ana", "cc")]
+    [TestCase("ban ana ", "cc")]
+    [TestCase(" ban ana ", "cc")]
+    [TestCase("aaa", "ccc")]
+    [TestCase("aba", "ccc")]
+    [TestCase("abb", "ccc")]
+    [TestCase("baa", "ccc")]
+    [TestCase(" aaa", "ccc")]
+    [TestCase("aaa ", "ccc")]
+    [TestCase(" aaa ", "ccc")]
+    [TestCase("banana", "ccc")]
+    [TestCase("ban ana", "ccc")]
+    [TestCase(" ban ana", "ccc")]
+    [TestCase("ban ana ", "ccc")]
+    [TestCase(" ban ana ", "ccc")]
+    public void Find_PatternDoesNotExistInText_NoResultExists(string text, string pattern)
+    {
+      var t = new SuffixTree(_encoder.GetBytes(text));
+      t.Initialize();
+      var results = t.Find(_encoder.GetBytes(pattern));
+      Assert.AreEqual(0, results.OccurrencesCount);
     }
 
     [TestCase("aaa")]
@@ -52,8 +95,8 @@ namespace PatternSearch.Tests.Suffix
     {
       var t = new SuffixTree(_encoder.GetBytes(s));
       t.Initialize();
-      var results = t.Find(_encoder.GetBytes(s)).ToArray();
-      Assert.AreEqual(1, results.Length);
+      var results = t.Find(_encoder.GetBytes(s));
+      Assert.AreEqual(1, results.OccurrencesCount);
     }
 
     [TestCase("aaa")]
@@ -72,8 +115,8 @@ namespace PatternSearch.Tests.Suffix
     {
       var tree = new SuffixTree(_encoder.GetBytes(s));
       tree.Initialize();
-      var results = tree.Find(_encoder.GetBytes(s)).ToArray();
-      Assert.AreEqual(0, results[0]);
+      var results = tree.Find(_encoder.GetBytes(s));
+      Assert.AreEqual(0, results.Indices[0]);
     }
     
     [Test]
@@ -82,10 +125,10 @@ namespace PatternSearch.Tests.Suffix
       const string text = "banana";
       var tree = new SuffixTree(_encoder.GetBytes(text));
       tree.Initialize();
-      var results = tree.Find(_encoder.GetBytes("an")).ToArray();
-      Assert.AreEqual(2, results.Length);
-      Assert.AreEqual(3, results[0]);
-      Assert.AreEqual(1, results[1]);
+      var results = tree.Find(_encoder.GetBytes("an"));
+      Assert.AreEqual(2, results.OccurrencesCount);
+      Assert.AreEqual(3, results.Indices[0]);
+      Assert.AreEqual(1, results.Indices[1]);
     }
 
     [Test]
@@ -94,8 +137,8 @@ namespace PatternSearch.Tests.Suffix
       const string text = "sasbasaasba";
       var tree = new SuffixTree(_encoder.GetBytes(text));
       tree.Initialize();
-      var results = tree.Find(_encoder.GetBytes("sba")).ToArray();
-      Assert.AreEqual(2, results.Length);
+      var results = tree.Find(_encoder.GetBytes("sba"));
+      Assert.AreEqual(2, results.OccurrencesCount);
     }
 
     [Test]
@@ -104,8 +147,8 @@ namespace PatternSearch.Tests.Suffix
       const string text = "sasa";
       var tree = new SuffixTree(_encoder.GetBytes(text));
       tree.Initialize();
-      var results = tree.Find(_encoder.GetBytes("sa")).ToArray();
-      Assert.AreEqual(2, results.Length);
+      var results = tree.Find(_encoder.GetBytes("sa"));
+      Assert.AreEqual(2, results.OccurrencesCount);
     }
   }
 }

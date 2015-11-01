@@ -5,6 +5,16 @@ namespace PatternSearch.Common
 {
   public class OperationTimeTester
   {
+    public OperationTimeResult<TR> Test<TR>(Func<TR> operation) where TR : new()
+    {
+      Stopwatch sw = new Stopwatch();
+      sw.Start();
+      var result = operation();
+      sw.Stop();
+
+      return new OperationTimeResult<TR>(result, sw.Elapsed);
+    }
+
     public OperationTimeResult<TR> Test<TP, TR>(Func<TP, TR> operation, TP p) where TR : new()
     {
       Stopwatch sw = new Stopwatch();

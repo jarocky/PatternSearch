@@ -31,7 +31,7 @@ namespace PatternSearch.Comparison
         return new ComparisonResult();
       }
 
-      var processingTable = new int[firstText.Length + 1, secondText.Length + 1];
+      var processingTable = new byte[firstText.Length + 1, secondText.Length + 1];
       var result = new ComparisonResult();
 
       for (var j = 1; j <= processingTable.GetLength(1); j++)
@@ -42,7 +42,7 @@ namespace PatternSearch.Comparison
           {
             if (firstText[i - 1] == secondText[j - 1])
             {
-              processingTable[i, j] = processingTable[i - 1, j - 1] + 1;
+              processingTable[i, j] = (byte)(processingTable[i - 1, j - 1] + 1);
             }
             else
             {

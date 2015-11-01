@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using System.Linq;
 using PatternSearch.Brute;
 using PatternSearch.Common;
 using PatternSearch.RabinKarp;
@@ -37,25 +36,13 @@ namespace PatternSearch.Console.Tests
       Show("Pan Wołodyjowski", textSize, "Rabin-Karp with hashing modulo 2147483647", patternString, patternSize, result);
 
       var suffixTree = new SuffixTree(text);
-      suffixTree.Initialize();
-      var indices = suffixTree.Find(pattern).ToArray();
-      var findingComparisonsCount = suffixTree.LastFindingComparisonsCount;
-
-      foreach (var index in result.OperationResult.Indices)
-      {
-        if (!indices.Any(i => i == index))
-        {
-          System.Console.Out.WriteLine("Missing index {0} indices", index);
-        }
-      }
-
-      foreach (var index in indices)
-      {
-        if (!result.OperationResult.Indices.Any(i => i == index))
-        {
-          System.Console.Out.WriteLine("Missing index {0} good table", index);
-        }
-      }
+      System.Console.Out.WriteLine("Suffix tree building start...");
+      var suffixtreebuildingResult = operationTimeTester.Test(suffixTree.Initialize);
+      System.Console.Out.WriteLine("Suffix tree building finished.");
+      System.Console.Out.WriteLine("Elapsed: {0}", suffixtreebuildingResult.Elapsed);
+      System.Console.Out.WriteLine();
+      result = operationTimeTester.Test(suffixTree.Find, pattern);
+      Show("Pan Wołodyjowski", textSize, "Suffix Tree", patternString, patternSize, result);
     }
 
     private static void Show(

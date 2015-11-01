@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatternSearch", "PatternSearch\PatternSearch.csproj", "{62D5878D-BE2D-4499-9A96-72AE6A2913A8}"
 EndProject
@@ -14,6 +14,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatternSearch.Common", "PatternSearch.Common\PatternSearch.Common.csproj", "{695A8C9A-EA39-4108-99E3-701DEC1BA0E4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatternSearch.Comparison", "PatternSearch.Comparison\PatternSearch.Comparison.csproj", "{DB7AEA76-B5A6-463C-9B4C-FEBDE3B41477}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatternSearch.Console.Comparison.Tests", "PatternSearch.Console.Comparison.Tests\PatternSearch.Console.Comparison.Tests.csproj", "{B96BFA58-8EB4-4296-84B6-1C50928EEBB9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{DB7AEA76-B5A6-463C-9B4C-FEBDE3B41477}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB7AEA76-B5A6-463C-9B4C-FEBDE3B41477}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB7AEA76-B5A6-463C-9B4C-FEBDE3B41477}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B96BFA58-8EB4-4296-84B6-1C50928EEBB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B96BFA58-8EB4-4296-84B6-1C50928EEBB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B96BFA58-8EB4-4296-84B6-1C50928EEBB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B96BFA58-8EB4-4296-84B6-1C50928EEBB9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
