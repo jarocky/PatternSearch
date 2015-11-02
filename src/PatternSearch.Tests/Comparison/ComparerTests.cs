@@ -178,12 +178,9 @@ namespace PatternSearch.Tests.Comparison
     {
       var result = _comparer.Compare(_encoder.GetBytes(firstText), _encoder.GetBytes(secondText), minLength);
 
-      Assert.AreEqual(0, result.Indices.Keys.ElementAt(0).Item1);
-      Assert.AreEqual(18, result.Indices.Keys.ElementAt(0).Item2);
-      Assert.AreEqual(8, result.Indices.Keys.ElementAt(1).Item1);
-      Assert.AreEqual(18, result.Indices.Keys.ElementAt(1).Item2);
-      Assert.AreEqual(17, result.Indices.Keys.ElementAt(2).Item1);
-      Assert.AreEqual(18, result.Indices.Keys.ElementAt(2).Item2);
+      Assert.IsTrue(result.Indices.Any(r => r.Key.Item1 == 0 && r.Key.Item2 == 18));
+      Assert.IsTrue(result.Indices.Any(r => r.Key.Item1 == 8 && r.Key.Item2 == 18));
+      Assert.IsTrue(result.Indices.Any(r => r.Key.Item1 == 17 && r.Key.Item2 == 18));
     }
 
     [TestCase("ABCWEWYRABCWGROWEQABCW", "KLHDSWOPSASBBHJLASQABCWDIPHBSDGJKLSDBD", 4)]
@@ -193,9 +190,8 @@ namespace PatternSearch.Tests.Comparison
     {
       var result = _comparer.Compare(_encoder.GetBytes(firstText), _encoder.GetBytes(secondText), minLength);
 
-      Assert.AreEqual(4, result.Indices.Values.ElementAt(0));
-      Assert.AreEqual(4, result.Indices.Values.ElementAt(1));
-      Assert.AreEqual(5, result.Indices.Values.ElementAt(2));
+      Assert.AreEqual(2, result.Indices.Values.Where(r => r == 4).Count());
+      Assert.AreEqual(1, result.Indices.Values.Where(r => r == 5).Count());
     }
   }
 }

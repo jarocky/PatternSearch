@@ -6,6 +6,31 @@ namespace PatternSearch.Comparison
   {
     public ComparisonResult Compare(byte[] firstText, byte[] secondText, int minLength)
     {
+      if (firstText == null)
+      {
+        throw new ArgumentNullException("firstText", "Cannot be null");
+      }
+
+      if (secondText == null)
+      {
+        throw new ArgumentNullException("secondText", "Cannot be null");
+      }
+
+      if (firstText.Length == 0 || secondText.Length == 0)
+      {
+        return new ComparisonResult();
+      }
+
+      if (minLength < 1)
+      {
+        throw new ArgumentException("Must be greater than zero", "minLength");
+      }
+
+      if (firstText.Length < minLength || secondText.Length < minLength)
+      {
+        return new ComparisonResult();
+      }
+
       var result = new ComparisonResult();
       for (var i = 0; i < firstText.Length; i++)
       {
@@ -38,7 +63,7 @@ namespace PatternSearch.Comparison
           if (secondText[j + i] == firstText[j])
           {
             var length = 0;
-            var index = new Tuple<int, int>(j, j + 1);
+            var index = new Tuple<int, int>(j, j + i);
             while (j < firstText.Length && j + i < secondText.Length && secondText[j + i] == firstText[j])
             {
               length++;
