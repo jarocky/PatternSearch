@@ -6,12 +6,13 @@ using PatternSearch.Comparison;
 
 namespace PatternSearch.Tests.Comparison
 {
-  [TestFixture]
-  public class ComparerTests
+  [TestFixture(typeof(BruteComparer))]
+  [TestFixture(typeof(Comparer))]
+  public class ComparerTests<T> where T : IComparer, new()
   {
     private readonly ByteStringEncoder _encoder = new ByteStringEncoder();
 
-    private readonly Comparer _comparer = new Comparer();
+    private readonly IComparer _comparer = new T();
 
     [Test]
     public void Compare_FirstTextIsNull_ThrowArgumentNullException()

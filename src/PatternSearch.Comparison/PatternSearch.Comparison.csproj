@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BruteComparer.cs" />
     <Compile Include="Comparer.cs" />
     <Compile Include="ComparisonResult.cs" />
     <Compile Include="IComparer.cs" />

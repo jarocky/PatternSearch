@@ -14,7 +14,7 @@ namespace PatternSearch.Suffix
     {
       if (text == null)
       {
-        throw new ArgumentNullException(nameof(text), "Cannot be null");
+        throw new ArgumentNullException("text", "Cannot be null");
       }
 
       _text = text;
