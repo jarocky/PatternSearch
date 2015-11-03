@@ -6,32 +6,32 @@ using PatternSearch.Suffix;
 namespace PatternSearch.Tests.Suffix
 {
   [TestFixture]
-  public class SuffixTreeTests
+  public class SuffixArrayTests
   {
     private readonly ByteStringEncoder _encoder = new ByteStringEncoder();
 
     [Test]
     public void Constructor_TextIsNull_ThrowArgumentNullException()
     {
-     Assert.Throws<ArgumentNullException>(() => new SuffixTree(null));
+      Assert.Throws<ArgumentNullException>(() => new SuffixArray(null));
     }
 
     [Test]
     public void Initialize_ReturnComparisonsCount()
     {
       const string text = "banana";
-      var tree = new SuffixTree(_encoder.GetBytes(text));
-      var comparisonsCount = tree.Initialize();
+      var array = new SuffixArray(_encoder.GetBytes(text));
+      var comparisonsCount = array.Initialize();
       Assert.Greater(comparisonsCount, 0);
     }
-    
+
     [Test]
-    public void Find_TreeIsNotInitialized_ThrowInvalidOperationException()
+    public void Find_arrayIsNotInitialized_ThrowInvalidOperationException()
     {
       const string text = "banana";
-      var tree = new SuffixTree(_encoder.GetBytes(text));
-      
-      Assert.Throws<InvalidOperationException>(() => tree.Find(_encoder.GetBytes("an")));
+      var array = new SuffixArray(_encoder.GetBytes(text));
+
+      Assert.Throws<InvalidOperationException>(() => array.Find(_encoder.GetBytes("an")));
     }
 
     [TestCase("aaa", "c")]
@@ -72,9 +72,9 @@ namespace PatternSearch.Tests.Suffix
     [TestCase(" ban ana ", "ccc")]
     public void Find_PatternDoesNotExistInText_NoResultExists(string text, string pattern)
     {
-      var tree = new SuffixTree(_encoder.GetBytes(text));
-      tree.Initialize();
-      var results = tree.Find(_encoder.GetBytes(pattern));
+      var array = new SuffixArray(_encoder.GetBytes(text));
+      array.Initialize();
+      var results = array.Find(_encoder.GetBytes(pattern));
       Assert.AreEqual(0, results.OccurrencesCount);
     }
 
@@ -92,9 +92,9 @@ namespace PatternSearch.Tests.Suffix
     [TestCase(" ban ana ")]
     public void Find_PatternEqualText_OneResultExists(string s)
     {
-      var tree = new SuffixTree(_encoder.GetBytes(s));
-      tree.Initialize();
-      var results = tree.Find(_encoder.GetBytes(s));
+      var array = new SuffixArray(_encoder.GetBytes(s));
+      array.Initialize();
+      var results = array.Find(_encoder.GetBytes(s));
       Assert.AreEqual(1, results.OccurrencesCount);
     }
 
@@ -112,19 +112,19 @@ namespace PatternSearch.Tests.Suffix
     [TestCase(" ban ana ")]
     public void Find_PatternEqualText_ReturnIndexZero(string s)
     {
-      var tree = new SuffixTree(_encoder.GetBytes(s));
-      tree.Initialize();
-      var results = tree.Find(_encoder.GetBytes(s));
+      var array = new SuffixArray(_encoder.GetBytes(s));
+      array.Initialize();
+      var results = array.Find(_encoder.GetBytes(s));
       Assert.AreEqual(0, results.Indices[0]);
     }
-    
+
     [Test]
     public void Find_an()
     {
       const string text = "banana";
-      var tree = new SuffixTree(_encoder.GetBytes(text));
-      tree.Initialize();
-      var results = tree.Find(_encoder.GetBytes("an"));
+      var array = new SuffixArray(_encoder.GetBytes(text));
+      array.Initialize();
+      var results = array.Find(_encoder.GetBytes("an"));
       Assert.AreEqual(2, results.OccurrencesCount);
       Assert.AreEqual(3, results.Indices[0]);
       Assert.AreEqual(1, results.Indices[1]);
@@ -134,9 +134,9 @@ namespace PatternSearch.Tests.Suffix
     public void Find_sba()
     {
       const string text = "sasbasaasba";
-      var tree = new SuffixTree(_encoder.GetBytes(text));
-      tree.Initialize();
-      var results = tree.Find(_encoder.GetBytes("sba"));
+      var array = new SuffixArray(_encoder.GetBytes(text));
+      array.Initialize();
+      var results = array.Find(_encoder.GetBytes("sba"));
       Assert.AreEqual(2, results.OccurrencesCount);
     }
 
@@ -144,10 +144,10 @@ namespace PatternSearch.Tests.Suffix
     public void Find_sa()
     {
       const string text = "sasa";
-      var tree = new SuffixTree(_encoder.GetBytes(text));
-      tree.Initialize();
-      var results = tree.Find(_encoder.GetBytes("sa"));
+      var array = new SuffixArray(_encoder.GetBytes(text));
+      array.Initialize();
+      var results = array.Find(_encoder.GetBytes("sa"));
       Assert.AreEqual(2, results.OccurrencesCount);
-    }
+    } 
   }
 }

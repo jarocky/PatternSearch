@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace PatternSearch.Suffix
 {
-  public class SuffixTree : ISuffixTree
+  public class SuffixTree : ISuffix
   {
     private readonly Node _root = new Node();
     private readonly byte[] _text;

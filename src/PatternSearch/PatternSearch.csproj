@@ -54,10 +54,12 @@
     <Compile Include="RabinKarp\RabinKarpPatternSearcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SearchResult.cs" />
+    <Compile Include="Suffix\ComparisonResult.cs" />
     <Compile Include="Suffix\FindingAnyChildResult.cs" />
     <Compile Include="Suffix\FindingResult.cs" />
-    <Compile Include="Suffix\ISuffixTree.cs" />
+    <Compile Include="Suffix\ISuffix.cs" />
     <Compile Include="Suffix\Node.cs" />
+    <Compile Include="Suffix\SuffixArray.cs" />
     <Compile Include="Suffix\SuffixTree.cs" />
   </ItemGroup>
   <ItemGroup />

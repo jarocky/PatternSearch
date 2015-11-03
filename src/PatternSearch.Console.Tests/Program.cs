@@ -35,7 +35,7 @@ namespace PatternSearch.Console.Tests
       result = operationTimeTester.Test(rabinkarpModulo2147483647.Search, pattern, text);
       Show("Pan Wołodyjowski", textSize, "Rabin-Karp with hashing modulo 2147483647", patternString, patternSize, result);
 
-      var suffixTree = new SuffixTree(text);
+      var suffixTree = new Suffix.SuffixTree(text);
       System.Console.Out.WriteLine("Suffix tree building start...");
       var suffixtreebuildingResult = operationTimeTester.Test(suffixTree.Initialize);
       System.Console.Out.WriteLine("Suffix tree building finished.");

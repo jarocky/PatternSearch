@@ -52,6 +52,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Search\RabinKarpPatternSearcherTests.cs" />
     <Compile Include="Search\SearchResultTests.cs" />
+    <Compile Include="Suffix\SuffixArrayTests.cs" />
     <Compile Include="Suffix\SuffixTreeTests.cs" />
   </ItemGroup>
   <ItemGroup>

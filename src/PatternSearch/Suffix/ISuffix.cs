@@ -1,6 +1,6 @@
 ﻿namespace PatternSearch.Suffix
 {
-  public interface ISuffixTree
+  public interface ISuffix
   {
     int Initialize();
     SearchResult Find(byte[] pattern);
