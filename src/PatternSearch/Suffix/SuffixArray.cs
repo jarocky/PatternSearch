@@ -42,23 +42,23 @@ namespace PatternSearch.Suffix
         var suffix = _textSuffixArray[i];
 
         var j = 0;
-        var comparisonResult = new FindingResult<string>();
-        if (_suffixArray[j] != null)
+        while (_suffixArray[j] != null)
         {
-          comparisonResult = CompareBytes(_suffixArray[j].Item1, suffix.Item1);
+          var comparisonResult = CompareBytes(_suffixArray[j].Item1, suffix.Item1);
           comparisons += comparisonResult.ComparisonsCount;
-        }
-        while (_suffixArray[j] != null && comparisonResult.Result == ComparisonResult.SecondGreaterThanFirst)
-        {
+          if (comparisonResult.Result != ComparisonResult.SecondGreaterThanFirst)
+          {
+            break;
+          }
           j++;
         }
 
-        for (var k = j; k < i; k++)
+        for (var k = i; k > j; k--)
         {
-          _suffixArray[k] = _suffixArray[k + 1];
+          _suffixArray[k] = _suffixArray[k - 1];
         }
 
-        _suffixArray[i] = suffix;
+        _suffixArray[j] = suffix;
       }
 
       _buildingComparisonsCount = comparisons;
@@ -69,7 +69,62 @@ namespace PatternSearch.Suffix
 
     public SearchResult Find(byte[] pattern)
     {
-      throw new System.NotImplementedException();
+      var comparisons = 0;
+      var found = false;
+      var i = 0;
+      var j = _suffixArray.Length - 1;
+      while (i != j)
+      {
+        var index = (i + j) / 2;
+        var comparisonResult = CompareBytes(_suffixArray[index].Item1, pattern);
+        comparisons += comparisonResult.ComparisonsCount;
+
+        if (comparisonResult.Result == ComparisonResult.Equal)
+        {
+          found = true;
+          break;
+        }
+
+        if (comparisonResult.Result == ComparisonResult.SecondGreaterThanFirst)
+        {
+          if (i == index)
+          {
+            i++;
+          }
+          else
+          {
+            i = index;
+          }
+        }
+        else
+        {
+          if (i == index)
+          {
+            j--;
+          }
+          else
+          {
+            j = index;
+          }
+        }
+      }
+
+      if (!found)
+      {
+        return new SearchResult
+        {
+          Indices = new int[0],
+          ComparisonsCount = comparisons
+        };
+      }
+
+      //todo zebranie wyników.
+
+      return new SearchResult
+      {
+        Indices = new int[0],
+        ComparisonsCount = comparisons
+      };
     }
 
     private FindingResult<string> CompareBytes(byte[] text1, byte[] text2)
