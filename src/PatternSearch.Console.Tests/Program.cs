@@ -2,7 +2,6 @@
 using PatternSearch.Brute;
 using PatternSearch.Common;
 using PatternSearch.RabinKarp;
-using PatternSearch.Suffix;
 
 namespace PatternSearch.Console.Tests
 {
@@ -37,12 +36,23 @@ namespace PatternSearch.Console.Tests
 
       var suffixTree = new Suffix.SuffixTree(text);
       System.Console.Out.WriteLine("Suffix tree building start...");
-      var suffixtreebuildingResult = operationTimeTester.Test(suffixTree.Initialize);
+      var suffixTreeBuildingResult = operationTimeTester.Test(suffixTree.Initialize);
+      System.Console.Out.WriteLine("Comparisons count: {0}", suffixTreeBuildingResult.OperationResult);
       System.Console.Out.WriteLine("Suffix tree building finished.");
-      System.Console.Out.WriteLine("Elapsed: {0}", suffixtreebuildingResult.Elapsed);
+      System.Console.Out.WriteLine("Elapsed: {0}", suffixTreeBuildingResult.Elapsed);
       System.Console.Out.WriteLine();
       result = operationTimeTester.Test(suffixTree.Find, pattern);
       Show("Pan Wołodyjowski", textSize, "Suffix Tree", patternString, patternSize, result);
+
+      var suffixArray = new Suffix.SuffixArray(text);
+      System.Console.Out.WriteLine("Suffix array building start...");
+      var suffixArrayBuildingResult = operationTimeTester.Test(suffixArray.Initialize);
+      System.Console.Out.WriteLine("Comparisons count: {0}", suffixArrayBuildingResult.OperationResult);
+      System.Console.Out.WriteLine("Suffix array building finished.");
+      System.Console.Out.WriteLine("Elapsed: {0}", suffixArrayBuildingResult.Elapsed);
+      System.Console.Out.WriteLine();
+      result = operationTimeTester.Test(suffixArray.Find, pattern);
+      Show("Pan Wołodyjowski", textSize, "Suffix Array", patternString, patternSize, result);
     }
 
     private static void Show(
