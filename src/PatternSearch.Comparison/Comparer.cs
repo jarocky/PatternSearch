@@ -62,7 +62,7 @@ namespace PatternSearch.Comparison
             if (processingTable[i - 1, jincmodulo] >= minLength)
             {
               result.Indices.Add(
-                new Tuple<int, int>(i - processingTable[i - 1, jincmodulo] - 2, j - processingTable[i - 1, jincmodulo] - 1),
+                new Tuple<int, int>(i - processingTable[i - 1, jincmodulo] - 1, j - processingTable[i - 1, jincmodulo] - 1),
                 processingTable[i - 1, jincmodulo]);
             }
           }
