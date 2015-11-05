@@ -31,37 +31,39 @@ namespace PatternSearch.Comparison
         return new ComparisonResult();
       }
 
-      var processingTable = new byte[firstText.Length + 1, secondText.Length + 1];
+      var processingTable = new byte[firstText.Length + 1, 2];
       var result = new ComparisonResult();
 
-      for (var j = 1; j <= processingTable.GetLength(1); j++)
+      for (var j = 1; j <= secondText.Length + 1; j++)
       {
-        for (var i = 1; i <= processingTable.GetLength(0); i++)
+        var jmodulo = j % 2;
+        var jincmodulo = (j + 1) % 2;
+        for (var i = 1; i <= firstText.Length + 1; i++)
         {
-          if (i < processingTable.GetLength(0) && j < processingTable.GetLength(1))
+          if (i < firstText.Length + 1 && j < secondText.Length + 1)
           {
             if (firstText[i - 1] == secondText[j - 1])
             {
-              processingTable[i, j] = (byte)(processingTable[i - 1, j - 1] + 1);
+              processingTable[i, jmodulo] = (byte)(processingTable[i - 1, jincmodulo] + 1);
             }
             else
             {
-              if (processingTable[i - 1, j - 1] >= minLength)
+              if (processingTable[i - 1, jincmodulo] >= minLength)
               {
                 result.Indices.Add(
-                  new Tuple<int, int>(i - processingTable[i - 1, j - 1] - 1, j - processingTable[i - 1, j - 1] - 1),
-                  processingTable[i - 1, j - 1]);
+                  new Tuple<int, int>(i - processingTable[i - 1, jincmodulo] - 1, j - processingTable[i - 1, jincmodulo] - 1),
+                  processingTable[i - 1, jincmodulo]);
               }
-              processingTable[i, j] = 0;
+              processingTable[i, jmodulo] = 0;
             }
           }
           else
           {
-            if (processingTable[i - 1, j - 1] >= minLength)
+            if (processingTable[i - 1, jincmodulo] >= minLength)
             {
               result.Indices.Add(
-                new Tuple<int, int>(i - processingTable[i - 1, j - 1] - 1, j - processingTable[i - 1, j - 1] - 1),
-                processingTable[i - 1, j - 1]);
+                new Tuple<int, int>(i - processingTable[i - 1, jincmodulo] - 2, j - processingTable[i - 1, jincmodulo] - 1),
+                processingTable[i - 1, jincmodulo]);
             }
           }
         }

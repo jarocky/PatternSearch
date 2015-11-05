@@ -10,7 +10,7 @@ namespace PatternSearch.Console.Comparison.Tests
       var text1 = File.ReadAllBytes(@"..\doc\pi.t");
       var text2 = File.ReadAllBytes(@"..\doc\e.t");
 
-      var comparer = new BruteComparer();
+      var comparer = new Comparer();
       var k = 5;
 
       var result = comparer.Compare(text1, text2, k);
