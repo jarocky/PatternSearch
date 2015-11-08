@@ -22,17 +22,25 @@ namespace PatternSearch.Console.Tests
       var result = operationTimeTester.Test(brute.Search, pattern, text);
       Show("Pan Wołodyjowski", textSize, "Brute", patternString, patternSize, result);
 
+      Pause();
+
       var rabinkarpModulo13 = new RabinKarpPatternSearcher(new HashingService(256, 13));
       result = operationTimeTester.Test(rabinkarpModulo13.Search, pattern, text);
       Show("Pan Wołodyjowski", textSize, "Rabin-Karp with hashing modulo 13", patternString, patternSize, result);
+
+      Pause();
 
       var rabinkarpModulo101 = new RabinKarpPatternSearcher(new HashingService(256, 101));
       result = operationTimeTester.Test(rabinkarpModulo101.Search, pattern, text);
       Show("Pan Wołodyjowski", textSize, "Rabin-Karp with hashing modulo 101", patternString, patternSize, result);
 
+      Pause();
+
       var rabinkarpModulo2147483647 = new RabinKarpPatternSearcher(new HashingService(256, 2147483647));
       result = operationTimeTester.Test(rabinkarpModulo2147483647.Search, pattern, text);
       Show("Pan Wołodyjowski", textSize, "Rabin-Karp with hashing modulo 2147483647", patternString, patternSize, result);
+
+      Pause();
 
       var suffixTree = new Suffix.SuffixTree(text);
       System.Console.Out.WriteLine("Suffix tree building start...");
@@ -41,8 +49,13 @@ namespace PatternSearch.Console.Tests
       System.Console.Out.WriteLine("Suffix tree building finished.");
       System.Console.Out.WriteLine("Elapsed: {0}", suffixTreeBuildingResult.Elapsed);
       System.Console.Out.WriteLine();
+
+      Pause();
+
       result = operationTimeTester.Test(suffixTree.Find, pattern);
       Show("Pan Wołodyjowski", textSize, "Suffix Tree", patternString, patternSize, result);
+
+      Pause();
 
       var suffixArray = new Suffix.SuffixArray(text);
       System.Console.Out.WriteLine("Suffix array building start...");
@@ -51,8 +64,19 @@ namespace PatternSearch.Console.Tests
       System.Console.Out.WriteLine("Suffix array building finished.");
       System.Console.Out.WriteLine("Elapsed: {0}", suffixArrayBuildingResult.Elapsed);
       System.Console.Out.WriteLine();
+
+      Pause();
+
       result = operationTimeTester.Test(suffixArray.Find, pattern);
       Show("Pan Wołodyjowski", textSize, "Suffix Array", patternString, patternSize, result);
+
+      Pause();
+    }
+
+    private static void Pause()
+    {
+      System.Console.Out.WriteLine("Pause...");
+      System.Console.ReadKey();
     }
 
     private static void Show(

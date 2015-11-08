@@ -9,7 +9,7 @@ namespace PatternSearch.Suffix
     private readonly Tuple<byte[], int>[] _suffixArray;
     private bool _initialized;
     private int _buildingComparisonsCount;
-    
+
     public SuffixArray(byte[] text)
     {
       if (text == null)
