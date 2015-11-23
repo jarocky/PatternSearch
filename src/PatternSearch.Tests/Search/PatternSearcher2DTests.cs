@@ -1,6 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 using PatternSearch.Common;
+using PatternSearch.Hashing;
 using PatternSearch.RabinKarp;
 
 namespace PatternSearch.Tests.Search

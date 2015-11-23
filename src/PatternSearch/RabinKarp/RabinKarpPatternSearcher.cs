@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using PatternSearch.Hashing;
 
 namespace PatternSearch.RabinKarp
 {

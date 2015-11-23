@@ -1,4 +1,4 @@
-﻿namespace PatternSearch.Suffix
+﻿namespace PatternSearch.SuffixStructures
 {
   public class FindingResult<T> where T : class
   {

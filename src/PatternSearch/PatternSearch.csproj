@@ -46,21 +46,26 @@
   <ItemGroup>
     <Compile Include="Brute\Brute2DPatternSearcher.cs" />
     <Compile Include="Brute\BrutePatternSearcher.cs" />
-    <Compile Include="RabinKarp\HashingService.cs" />
+    <Compile Include="HashingStructures\HashingArray.cs" />
     <Compile Include="I2DPatternSearcher.cs" />
     <Compile Include="IPatternSearcher.cs" />
-    <Compile Include="RabinKarp\IHashingService.cs" />
     <Compile Include="RabinKarp\RabinKarp2DPatternSearcher.cs" />
     <Compile Include="RabinKarp\RabinKarpPatternSearcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SearchResult.cs" />
-    <Compile Include="Suffix\ComparisonResult.cs" />
-    <Compile Include="Suffix\FindingAnyChildResult.cs" />
-    <Compile Include="Suffix\FindingResult.cs" />
-    <Compile Include="Suffix\ISuffix.cs" />
-    <Compile Include="Suffix\Node.cs" />
-    <Compile Include="Suffix\SuffixArray.cs" />
-    <Compile Include="Suffix\SuffixTree.cs" />
+    <Compile Include="SuffixStructures\ComparisonResult.cs" />
+    <Compile Include="SuffixStructures\FindingAnyChildResult.cs" />
+    <Compile Include="SuffixStructures\FindingResult.cs" />
+    <Compile Include="SuffixStructures\ISuffix.cs" />
+    <Compile Include="SuffixStructures\Node.cs" />
+    <Compile Include="SuffixStructures\SuffixArray.cs" />
+    <Compile Include="SuffixStructures\SuffixTree.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PatternSearch.Hashing\PatternSearch.Hashing.csproj">
+      <Project>{229BC716-E3DB-404A-A0FE-C9A8984451DB}</Project>
+      <Name>PatternSearch.Hashing</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

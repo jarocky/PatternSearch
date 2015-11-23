@@ -53,6 +53,10 @@
       <Project>{695a8c9a-ea39-4108-99e3-701dec1ba0e4}</Project>
       <Name>PatternSearch.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PatternSearch.Hashing\PatternSearch.Hashing.csproj">
+      <Project>{229BC716-E3DB-404A-A0FE-C9A8984451DB}</Project>
+      <Name>PatternSearch.Hashing</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PatternSearch\PatternSearch.csproj">
       <Project>{62d5878d-be2d-4499-9a96-72ae6a2913a8}</Project>
       <Name>PatternSearch</Name>

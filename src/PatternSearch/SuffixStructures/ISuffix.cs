@@ -1,4 +1,4 @@
-﻿namespace PatternSearch.Suffix
+﻿namespace PatternSearch.SuffixStructures
 {
   public interface ISuffix
   {

@@ -1,9 +1,9 @@
 ﻿using System;
 using NUnit.Framework;
 using PatternSearch.Common;
-using PatternSearch.Suffix;
+using PatternSearch.SuffixStructures;
 
-namespace PatternSearch.Tests.Suffix
+namespace PatternSearch.Tests.SuffixStructures
 {
   [TestFixture]
   public class SuffixTreeTests

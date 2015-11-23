@@ -1,4 +1,4 @@
-﻿namespace PatternSearch.RabinKarp
+﻿namespace PatternSearch.Hashing
 {
   public class HashingService : IHashingService
   {

@@ -1,7 +1,9 @@
 ﻿using System.IO;
 using PatternSearch.Brute;
 using PatternSearch.Common;
+using PatternSearch.Hashing;
 using PatternSearch.RabinKarp;
+using PatternSearch.SuffixStructures;
 
 namespace PatternSearch.Console.Tests
 {
@@ -42,7 +44,7 @@ namespace PatternSearch.Console.Tests
 
       Pause();
 
-      var suffixTree = new Suffix.SuffixTree(text);
+      var suffixTree = new SuffixTree(text);
       System.Console.Out.WriteLine("Suffix tree building start...");
       var suffixTreeBuildingResult = operationTimeTester.Test(suffixTree.Initialize);
       System.Console.Out.WriteLine("Comparisons count: {0}", suffixTreeBuildingResult.OperationResult);
@@ -57,7 +59,7 @@ namespace PatternSearch.Console.Tests
 
       Pause();
 
-      var suffixArray = new Suffix.SuffixArray(text);
+      var suffixArray = new SuffixArray(text);
       System.Console.Out.WriteLine("Suffix array building start...");
       var suffixArrayBuildingResult = operationTimeTester.Test(suffixArray.Initialize);
       System.Console.Out.WriteLine("Comparisons count: {0}", suffixArrayBuildingResult.OperationResult);

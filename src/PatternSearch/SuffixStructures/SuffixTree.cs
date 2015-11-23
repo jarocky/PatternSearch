@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PatternSearch.Suffix
+namespace PatternSearch.SuffixStructures
 {
   public class SuffixTree : ISuffix
   {
