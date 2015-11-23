@@ -11,6 +11,14 @@
       _moduloPrime = moduloPrime;
     }
 
+    public long Hash(string s)
+    {
+      var longs = new long[s.Length * sizeof(char)];
+      System.Buffer.BlockCopy(s.ToCharArray(), 0, longs, 0, longs.Length);
+
+      return Hash(longs);
+    }
+
     public long Hash(long[] t)
     {
       long sum = 0;
