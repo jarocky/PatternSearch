@@ -60,6 +60,8 @@
     <Compile Include="Search\SearchResultTests.cs" />
     <Compile Include="Structures\Suffix\SuffixArrayTests.cs" />
     <Compile Include="Structures\Suffix\SuffixTreeTests.cs" />
+    <Compile Include="Structures\Trees\BinaryTreeTests.cs" />
+    <Compile Include="Structures\Trees\NodeTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">

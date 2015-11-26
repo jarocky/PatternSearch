@@ -63,6 +63,8 @@
     <Compile Include="Structures\Suffix\Node.cs" />
     <Compile Include="Structures\Suffix\SuffixArray.cs" />
     <Compile Include="Structures\Suffix\SuffixTree.cs" />
+    <Compile Include="Structures\Trees\BinaryTree.cs" />
+    <Compile Include="Structures\Trees\Node.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PatternSearch.Hashing\PatternSearch.Hashing.csproj">
