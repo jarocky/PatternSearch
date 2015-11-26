@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using PatternSearch.Hashing;
 
-namespace PatternSearch.HashingStructures
+namespace PatternSearch.Structures.Hashing
 {
   public class HashingArray
   {

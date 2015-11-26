@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PatternSearch.SuffixStructures
+namespace PatternSearch.Structures.Suffix
 {
   public class SuffixArray : ISuffix
   {

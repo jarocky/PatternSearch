@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace PatternSearch.SuffixStructures
+namespace PatternSearch.Structures.Suffix
 {
   internal class Node
   {

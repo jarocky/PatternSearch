@@ -1,8 +1,8 @@
 ﻿using System;
 using NUnit.Framework;
-using PatternSearch.HashingStructures;
+using PatternSearch.Structures.Hashing;
 
-namespace PatternSearch.Tests.HashingStructures
+namespace PatternSearch.Tests.Structures.Hashing
 {
   [TestFixture]
   public class WordTests

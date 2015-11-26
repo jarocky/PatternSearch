@@ -1,8 +1,8 @@
 ﻿using System.IO;
-using PatternSearch.Brute;
 using PatternSearch.Common;
 using PatternSearch.Hashing;
-using PatternSearch.RabinKarp;
+using PatternSearch.Search.Brute;
+using PatternSearch.Search.RabinKarp;
 
 namespace PatternSearch.Console.Tests2D
 {

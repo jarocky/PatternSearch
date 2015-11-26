@@ -1,7 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
-using PatternSearch.Brute;
 using PatternSearch.Common;
+using PatternSearch.Search.Brute;
 
 namespace PatternSearch.Tests.Search
 {

@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using PatternSearch.Common;
 using PatternSearch.Hashing;
-using PatternSearch.RabinKarp;
+using PatternSearch.Search.RabinKarp;
 
 namespace PatternSearch.Tests.Search
 {

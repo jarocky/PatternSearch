@@ -1,9 +1,9 @@
 ﻿using System.IO;
-using PatternSearch.Brute;
 using PatternSearch.Common;
 using PatternSearch.Hashing;
-using PatternSearch.RabinKarp;
-using PatternSearch.SuffixStructures;
+using PatternSearch.Search.Brute;
+using PatternSearch.Search.RabinKarp;
+using PatternSearch.Structures.Suffix;
 
 namespace PatternSearch.Console.Tests
 {

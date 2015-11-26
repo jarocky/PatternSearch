@@ -1,9 +1,9 @@
 ﻿using FakeItEasy;
 using NUnit.Framework;
 using PatternSearch.Hashing;
-using PatternSearch.HashingStructures;
+using PatternSearch.Structures.Hashing;
 
-namespace PatternSearch.Tests.HashingStructures
+namespace PatternSearch.Tests.Structures.Hashing
 {
   [TestFixture]
   public class HashingArrayTests

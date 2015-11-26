@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PatternSearch.HashingStructures
+namespace PatternSearch.Structures.Hashing
 {
   public class Word
   {

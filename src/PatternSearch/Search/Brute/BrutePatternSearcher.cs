@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PatternSearch.Brute
+namespace PatternSearch.Search.Brute
 {
   public class BrutePatternSearcher : IPatternSearcher
   {

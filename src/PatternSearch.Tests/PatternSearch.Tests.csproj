@@ -51,15 +51,15 @@
   <ItemGroup>
     <Compile Include="Comparison\ComparerTests.cs" />
     <Compile Include="Comparison\ComparisonResultTests.cs" />
-    <Compile Include="HashingStructures\HashingArrayTests.cs" />
-    <Compile Include="HashingStructures\WordTests.cs" />
+    <Compile Include="Structures\Hashing\HashingArrayTests.cs" />
+    <Compile Include="Structures\Hashing\WordTests.cs" />
     <Compile Include="Search\PatternSearcher2DTests.cs" />
     <Compile Include="Search\PatternSearcherTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Search\RabinKarpPatternSearcherTests.cs" />
     <Compile Include="Search\SearchResultTests.cs" />
-    <Compile Include="SuffixStructures\SuffixArrayTests.cs" />
-    <Compile Include="SuffixStructures\SuffixTreeTests.cs" />
+    <Compile Include="Structures\Suffix\SuffixArrayTests.cs" />
+    <Compile Include="Structures\Suffix\SuffixTreeTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">

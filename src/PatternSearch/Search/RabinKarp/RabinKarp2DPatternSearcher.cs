@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using PatternSearch.Hashing;
 
-namespace PatternSearch.RabinKarp
+namespace PatternSearch.Search.RabinKarp
 {
   public class RabinKarp2DPatternSearcher : I2DPatternSearcher
   {

@@ -44,23 +44,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Brute\Brute2DPatternSearcher.cs" />
-    <Compile Include="Brute\BrutePatternSearcher.cs" />
-    <Compile Include="HashingStructures\HashingArray.cs" />
-    <Compile Include="HashingStructures\Word.cs" />
+    <Compile Include="Search\Brute\Brute2DPatternSearcher.cs" />
+    <Compile Include="Search\Brute\BrutePatternSearcher.cs" />
+    <Compile Include="Structures\Hashing\HashingArray.cs" />
+    <Compile Include="Structures\Hashing\Word.cs" />
     <Compile Include="I2DPatternSearcher.cs" />
     <Compile Include="IPatternSearcher.cs" />
-    <Compile Include="RabinKarp\RabinKarp2DPatternSearcher.cs" />
-    <Compile Include="RabinKarp\RabinKarpPatternSearcher.cs" />
+    <Compile Include="Search\RabinKarp\RabinKarp2DPatternSearcher.cs" />
+    <Compile Include="Search\RabinKarp\RabinKarpPatternSearcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SearchResult.cs" />
-    <Compile Include="SuffixStructures\ComparisonResult.cs" />
-    <Compile Include="SuffixStructures\FindingAnyChildResult.cs" />
-    <Compile Include="SuffixStructures\FindingResult.cs" />
-    <Compile Include="SuffixStructures\ISuffix.cs" />
-    <Compile Include="SuffixStructures\Node.cs" />
-    <Compile Include="SuffixStructures\SuffixArray.cs" />
-    <Compile Include="SuffixStructures\SuffixTree.cs" />
+    <Compile Include="Structures\Lists\Item.cs" />
+    <Compile Include="Structures\Lists\SkipList.cs" />
+    <Compile Include="Structures\Suffix\ComparisonResult.cs" />
+    <Compile Include="Structures\Suffix\FindingAnyChildResult.cs" />
+    <Compile Include="Structures\Suffix\FindingResult.cs" />
+    <Compile Include="Structures\Suffix\ISuffix.cs" />
+    <Compile Include="Structures\Suffix\Node.cs" />
+    <Compile Include="Structures\Suffix\SuffixArray.cs" />
+    <Compile Include="Structures\Suffix\SuffixTree.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PatternSearch.Hashing\PatternSearch.Hashing.csproj">
