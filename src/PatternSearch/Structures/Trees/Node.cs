@@ -6,7 +6,7 @@ namespace PatternSearch.Structures.Trees
   {
     public Node<T> Left { get; private set; }
     public Node<T> Right { get; private set; }
-    public T Value { get; private set; }
+    public T Value { get; internal set; }
 
     public Node(T value)
     {

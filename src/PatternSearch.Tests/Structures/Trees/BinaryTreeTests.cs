@@ -97,6 +97,15 @@ namespace PatternSearch.Tests.Structures.Trees
     }
 
     [Test]
+    public void Delete_NullValue_ThrowArgumentNullException()
+    {
+      var root = new Item();
+      var tree = new BinaryTree<Item>(root);
+
+      Assert.Throws<ArgumentNullException>(() => tree.Delete(null));
+    }
+
+    [Test]
     public void Search_NullValue_ThrowArgumentNullException()
     {
       var root = new Item();
@@ -114,7 +123,7 @@ namespace PatternSearch.Tests.Structures.Trees
 
       var result = tree.Search(new Item(value));
 
-      Assert.IsTrue(result);
+      Assert.AreEqual(value, result.Result.Value);
     }
 
     [Test]
@@ -126,7 +135,7 @@ namespace PatternSearch.Tests.Structures.Trees
 
       var result = tree.Search(new Item(value));
 
-      Assert.IsFalse(result);
+      Assert.IsNull(result.Result);
     }
 
     [Test]
@@ -140,7 +149,7 @@ namespace PatternSearch.Tests.Structures.Trees
 
       var result = tree.Search(new Item(value));
 
-      Assert.IsFalse(result);
+      Assert.IsNull(result.Result);
     }
 
     [Test]
@@ -154,7 +163,7 @@ namespace PatternSearch.Tests.Structures.Trees
 
       var result = tree.Search(new Item(value));
 
-      Assert.IsTrue(result);
+      Assert.AreEqual(value, result.Result.Value);
     }
 
     [Test]
@@ -168,7 +177,7 @@ namespace PatternSearch.Tests.Structures.Trees
 
       var result = tree.Search(new Item(value));
 
-      Assert.IsTrue(result);
+      Assert.AreEqual(value, result.Result.Value);
     }
 
     private class Item : IComparable<Item>

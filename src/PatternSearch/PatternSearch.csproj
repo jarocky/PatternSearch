@@ -58,7 +58,7 @@
     <Compile Include="Structures\Lists\SkipList.cs" />
     <Compile Include="Structures\Suffix\ComparisonResult.cs" />
     <Compile Include="Structures\Suffix\FindingAnyChildResult.cs" />
-    <Compile Include="Structures\Suffix\FindingResult.cs" />
+    <Compile Include="OperationResult.cs" />
     <Compile Include="Structures\Suffix\ISuffix.cs" />
     <Compile Include="Structures\Suffix\Node.cs" />
     <Compile Include="Structures\Suffix\SuffixArray.cs" />

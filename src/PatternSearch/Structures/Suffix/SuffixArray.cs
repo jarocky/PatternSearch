@@ -166,7 +166,7 @@ namespace PatternSearch.Structures.Suffix
       };
     }
 
-    private FindingResult<string> CompareBytes(byte[] text, byte[] pattern)
+    private OperationResult<string> CompareBytes(byte[] text, byte[] pattern)
     {
       var length = Math.Min(text.Length, pattern.Length);
       var comparisons = 0;
@@ -175,7 +175,7 @@ namespace PatternSearch.Structures.Suffix
         comparisons++;
         if (text[i] > pattern[i])
         {
-          return new FindingResult<string>
+          return new OperationResult<string>
           {
             Result = ComparisonResult.FirstGreaterThanSecond,
             ComparisonsCount = comparisons
@@ -185,7 +185,7 @@ namespace PatternSearch.Structures.Suffix
 
         if (text[i] < pattern[i])
         {
-          return new FindingResult<string>
+          return new OperationResult<string>
           {
             Result = ComparisonResult.SecondGreaterThanFirst,
             ComparisonsCount = comparisons
@@ -195,14 +195,14 @@ namespace PatternSearch.Structures.Suffix
 
       if (pattern.Length > text.Length)
       {
-        return new FindingResult<string>
+        return new OperationResult<string>
         {
           Result = ComparisonResult.SecondGreaterThanFirst,
           ComparisonsCount = comparisons
         };
       }
 
-      return new FindingResult<string>
+      return new OperationResult<string>
       {
         Result = ComparisonResult.Equal,
         ComparisonsCount = comparisons

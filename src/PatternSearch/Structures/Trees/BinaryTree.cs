@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Security.Cryptography.X509Certificates;
+using System.Dynamic;
 
 namespace PatternSearch.Structures.Trees
 {
@@ -17,23 +17,27 @@ namespace PatternSearch.Structures.Trees
       Root = new Node<T>(rootValue);
     }
 
-    public void Insert(T value)
+    public int Insert(T value)
     {
       if (value == null)
       {
         throw new ArgumentNullException("value", "Cannot be null");
       }
 
+      var comparisons = 0;
       var currentNode = Root;
       while (true)
       {
+        comparisons++;
         if (value.CompareTo(currentNode.Value) == 0)
         {
           break;
         }
 
+        comparisons++;
         if (value.CompareTo(currentNode.Value) > 0)
         {
+          comparisons++;
           if (currentNode.Right == null)
           {
             currentNode.AddRight(value);
@@ -44,6 +48,7 @@ namespace PatternSearch.Structures.Trees
         }
         else
         {
+          comparisons++;
           if (currentNode.Left == null)
           {
             currentNode.AddLeft(value);
@@ -53,9 +58,37 @@ namespace PatternSearch.Structures.Trees
           currentNode = currentNode.Left;
         }
       }
+
+      return comparisons;
     }
 
-    public bool Search(T value)
+    public int Delete(T value)
+    {
+      if (value == null)
+      {
+        throw new ArgumentNullException("value", "Cannot be null");
+      }
+
+      var result = Search(value);
+      var comparisons = result.ComparisonsCount;
+      var nodeToDelete = result.Result;
+      if (nodeToDelete == null)
+      {
+        return comparisons;
+      }
+
+      //todo imoplementation
+      //if (nodeToDelete.Right != null)
+      //{
+      //  nodeToDelete.Value = nodeToDelete.Right.Value;
+
+      //}
+
+
+      return comparisons;
+    }
+
+    public OperationResult<Node<T>> Search(T value)
     {
       if (value == null)
       {
@@ -65,30 +98,51 @@ namespace PatternSearch.Structures.Trees
       return Search(value, Root);
     }
 
-    private bool Search(T value, Node<T> currentNode)
+    private OperationResult<Node<T>> Search(T value, Node<T> currentNode)
     {
-      if (value.CompareTo(currentNode.Value) == 0)
+      var comparisons = 0;
+      while (true)
       {
-        return true;
-      }
-
-      if (value.CompareTo(currentNode.Value) > 0)
-      {
-        if (currentNode.Right != null)
+        comparisons++;
+        if (value.CompareTo(currentNode.Value) == 0)
         {
-          Search(value, currentNode.Right);
+          return new OperationResult<Node<T>>
+          {
+            Result = currentNode, 
+            ComparisonsCount = comparisons
+          };
+        }
+
+        comparisons++;
+        if (value.CompareTo(currentNode.Value) > 0)
+        {
+          comparisons++;
+          if (currentNode.Right != null)
+          {
+            currentNode = currentNode.Right;
+            continue;
+          }
+          break;
+        }
+
+        comparisons++;
+        if (value.CompareTo(currentNode.Value) < 0)
+        {
+          comparisons++;
+          if (currentNode.Left != null)
+          {
+            currentNode = currentNode.Left;
+            continue;
+          }
+          break;
         }
       }
 
-      if (value.CompareTo(currentNode.Value) < 0)
+      return new OperationResult<Node<T>>
       {
-        if (currentNode.Left != null)
-        {
-          Search(value, currentNode.Left);
-        }
-      }
-
-      return false;
+        Result = null,
+        ComparisonsCount = comparisons
+      };
     }
   }
 }

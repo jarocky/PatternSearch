@@ -101,7 +101,7 @@ namespace PatternSearch.Structures.Suffix
       };
     }
 
-    private FindingResult<Node> FindNode(byte[] pattern)
+    private OperationResult<Node> FindNode(byte[] pattern)
     {
       var currentComparisonsCount = 0;
       var currentNode = _root;
@@ -112,7 +112,7 @@ namespace PatternSearch.Structures.Suffix
         currentComparisonsCount += findingResult.ComparisonsCount;
         if (!findingResult.CharacterExists)
         {
-          return new FindingResult<Node>
+          return new OperationResult<Node>
           {
             Result = null,
             ComparisonsCount = currentComparisonsCount
@@ -122,7 +122,7 @@ namespace PatternSearch.Structures.Suffix
         currentNode = currentNode.Children[character];
       }
 
-      return new FindingResult<Node>
+      return new OperationResult<Node>
       {
         Result = currentNode,
         ComparisonsCount = currentComparisonsCount
