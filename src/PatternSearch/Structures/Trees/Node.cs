@@ -28,13 +28,12 @@ namespace PatternSearch.Structures.Trees
       get { return _left; }
       internal set
       {
-        if (value == null)
-        {
-          throw new InvalidOperationException("Left node cannot be null");
-        }
-
         _left = value;
-        _left.Parent = this;
+
+        if (_left != null)
+        {
+          _left.Parent = this;
+        }
       }
     }
 
@@ -43,13 +42,12 @@ namespace PatternSearch.Structures.Trees
       get { return _right; }
       internal set
       {
-        if (value == null)
-        {
-          throw new InvalidOperationException("Right node cannot be null");
-        }
-
         _right = value;
-        _right.Parent = this;
+
+        if (_right != null)
+        {
+          _right.Parent = this;
+        }
       }
     }
 

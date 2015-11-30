@@ -106,6 +106,54 @@ namespace PatternSearch.Tests.Structures.Trees
     }
 
     [Test]
+    public void Delete_RootValue_ThrowInvalidOperationException()
+    {
+      var root = new Item();
+      var tree = new BinaryTree<Item>(root);
+
+      Assert.Throws<InvalidOperationException>(() => tree.Delete(root));
+    }
+
+    [Test]
+    public void Delete_OnlyRight_RootExists()
+    {
+      const int value = 3;
+      var root = new Item(2);
+      var tree = new BinaryTree<Item>(root);
+      tree.Insert(new Item(value));
+
+      tree.Delete(new Item(value));
+
+      Assert.AreEqual(root, tree.Root.Value);
+    }
+
+    [Test]
+    public void Delete_OnlyRight_RootLeftIsNull()
+    {
+      const int value = 3;
+      var root = new Item(2);
+      var tree = new BinaryTree<Item>(root);
+      tree.Insert(new Item(value));
+
+      tree.Delete(new Item(value));
+
+      Assert.IsNull(tree.Root.Left);
+    }
+
+    [Test]
+    public void Delete_OnlyRight_RootRightIsNull()
+    {
+      const int value = 3;
+      var root = new Item(2);
+      var tree = new BinaryTree<Item>(root);
+      tree.Insert(new Item(value));
+
+      tree.Delete(new Item(value));
+
+      Assert.IsNull(tree.Root.Right);
+    }
+
+    [Test]
     public void Search_NullValue_ThrowArgumentNullException()
     {
       var root = new Item();

@@ -76,38 +76,40 @@ namespace PatternSearch.Structures.Trees
         return comparisons;
       }
 
-      
       if (nodeToDelete.Right != null)
       {
+        comparisons++;
         nodeToDelete.Value = nodeToDelete.Right.Value;
 
         var nodeRightLeft = nodeToDelete.Right.Left;
-
-        comparisons++;
-        if (nodeToDelete.Right.Right != null)
-        {
-          nodeToDelete.Right = nodeToDelete.Right.Right;
-        }
-
+        nodeToDelete.Right = nodeToDelete.Right.Right;
         var nodeLeft = nodeToDelete.Left;
         nodeToDelete.Left = nodeRightLeft;
-
+        
         var currentNode = nodeToDelete;
+        comparisons++;
         while (currentNode.Left != null)
         {
-          comparisons++;
           currentNode = currentNode.Left;
+          comparisons++;
         }
         
         currentNode.Left = nodeLeft;
       }
       else if (nodeToDelete.Left != null)
       {
+        comparisons++;
+        comparisons++;
         nodeToDelete.Value = nodeToDelete.Left.Value;
+        var nodeLeftRight = nodeToDelete.Left.Right;
         nodeToDelete.Left = nodeToDelete.Left.Left;
+        nodeToDelete.Right = nodeLeftRight;
       }
       else if(nodeToDelete.Parent != null)
       {
+        comparisons++;
+        comparisons++;
+        comparisons++;
         comparisons++;
         if (nodeToDelete.Parent.Right == nodeToDelete)
         {
@@ -139,6 +141,7 @@ namespace PatternSearch.Structures.Trees
     private OperationResult<Node<T>> Search(T value, Node<T> currentNode)
     {
       var comparisons = 0;
+      comparisons++;
       while (true)
       {
         comparisons++;
