@@ -18,13 +18,26 @@ namespace PatternSearch.Tests.Structures.Trees
     }
 
     [Test]
-    public void AddLeft_LeftElementIsSet_ThrowInvalidOperationException()
+    public void Constructor_CorrectValue_ParentIsNull()
+    {
+      var value = new Item();
+
+      var node = new Node<Item>(value);
+
+      Assert.IsNull(node.Parent);
+    }
+
+    [Test]
+    public void AddLeft_LeftElementIsSet_SetNewLeftElement()
     {
       var root = new Item();
       var rootNode = new Node<Item>(root);
-      rootNode.AddLeft(root);
+      rootNode.Left = rootNode;
+      var node = new Item();
 
-      Assert.Throws<InvalidOperationException>(() => rootNode.AddLeft(root));
+      rootNode.Left = new Node<Item>(node);
+
+      Assert.AreEqual(rootNode.Left.Value, node);
     }
 
     [Test]
@@ -33,20 +46,36 @@ namespace PatternSearch.Tests.Structures.Trees
       var root = new Item();
       var node = new Item();
       var rootNode = new Node<Item>(root);
-      
-      rootNode.AddLeft(node);
+
+      rootNode.Left = new Node<Item>(node);
 
       Assert.AreEqual(node, rootNode.Left.Value);
     }
 
     [Test]
-    public void AddRight_LeftElementIsSet_ThrowInvalidOperationException()
+    public void AddLeft_LeftElementIsSet_SetNewParentElement()
     {
       var root = new Item();
       var rootNode = new Node<Item>(root);
-      rootNode.AddRight(root);
+      rootNode.Left = rootNode;
+      var node = new Node<Item>(new Item());
 
-      Assert.Throws<InvalidOperationException>(() => rootNode.AddRight(root));
+      rootNode.Left = node;
+
+      Assert.AreEqual(rootNode, rootNode.Left.Parent);
+    }
+
+    [Test]
+    public void AddRight_LeftElementIsSet_SetNewRightElement()
+    {
+      var root = new Item();
+      var rootNode = new Node<Item>(root);
+      rootNode.Right = new Node<Item>(root);
+      var node = new Item();
+
+      rootNode.Right = new Node<Item>(node);
+
+      Assert.AreEqual(node, rootNode.Right.Value);
     }
 
     [Test]
@@ -56,9 +85,22 @@ namespace PatternSearch.Tests.Structures.Trees
       var node = new Item();
       var rootNode = new Node<Item>(root);
 
-      rootNode.AddRight(node);
+      rootNode.Right = new Node<Item>(node);
 
       Assert.AreEqual(node, rootNode.Right.Value);
+    }
+
+    [Test]
+    public void AddLeft_RightElementIsSet_SetNewParentElement()
+    {
+      var root = new Item();
+      var rootNode = new Node<Item>(root);
+      rootNode.Right = rootNode;
+      var node = new Node<Item>(new Item());
+
+      rootNode.Right = node;
+
+      Assert.AreEqual(rootNode, rootNode.Right.Parent);
     }
 
     [Test]

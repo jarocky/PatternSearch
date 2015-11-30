@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Dynamic;
 
 namespace PatternSearch.Structures.Trees
 {
@@ -40,7 +39,7 @@ namespace PatternSearch.Structures.Trees
           comparisons++;
           if (currentNode.Right == null)
           {
-            currentNode.AddRight(value);
+            currentNode.Right = new Node<T>(value);
             break;
           }
           
@@ -51,7 +50,7 @@ namespace PatternSearch.Structures.Trees
           comparisons++;
           if (currentNode.Left == null)
           {
-            currentNode.AddLeft(value);
+            currentNode.Left = new Node<T>(value); 
             break;
           }
 
@@ -77,13 +76,52 @@ namespace PatternSearch.Structures.Trees
         return comparisons;
       }
 
-      //todo imoplementation
-      //if (nodeToDelete.Right != null)
-      //{
-      //  nodeToDelete.Value = nodeToDelete.Right.Value;
+      
+      if (nodeToDelete.Right != null)
+      {
+        nodeToDelete.Value = nodeToDelete.Right.Value;
 
-      //}
+        var nodeRightLeft = nodeToDelete.Right.Left;
 
+        comparisons++;
+        if (nodeToDelete.Right.Right != null)
+        {
+          nodeToDelete.Right = nodeToDelete.Right.Right;
+        }
+
+        var nodeLeft = nodeToDelete.Left;
+        nodeToDelete.Left = nodeRightLeft;
+
+        var currentNode = nodeToDelete;
+        while (currentNode.Left != null)
+        {
+          comparisons++;
+          currentNode = currentNode.Left;
+        }
+        
+        currentNode.Left = nodeLeft;
+      }
+      else if (nodeToDelete.Left != null)
+      {
+        nodeToDelete.Value = nodeToDelete.Left.Value;
+        nodeToDelete.Left = nodeToDelete.Left.Left;
+      }
+      else if(nodeToDelete.Parent != null)
+      {
+        comparisons++;
+        if (nodeToDelete.Parent.Right == nodeToDelete)
+        {
+          nodeToDelete.Parent.Right = null;
+        }
+        else
+        {
+          nodeToDelete.Parent.Left = null;
+        }
+      }
+      else
+      {
+        throw new InvalidOperationException("Root cannot be deleted");
+      }
 
       return comparisons;
     }

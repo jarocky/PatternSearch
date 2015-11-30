@@ -123,7 +123,7 @@ namespace PatternSearch.Tests.Structures.Trees
 
       var result = tree.Search(new Item(value));
 
-      Assert.AreEqual(value, result.Result.Value);
+      Assert.AreEqual(value, result.Result.Value.Value);
     }
 
     [Test]
@@ -163,7 +163,7 @@ namespace PatternSearch.Tests.Structures.Trees
 
       var result = tree.Search(new Item(value));
 
-      Assert.AreEqual(value, result.Result.Value);
+      Assert.AreEqual(value, result.Result.Value.Value);
     }
 
     [Test]
@@ -177,7 +177,7 @@ namespace PatternSearch.Tests.Structures.Trees
 
       var result = tree.Search(new Item(value));
 
-      Assert.AreEqual(value, result.Result.Value);
+      Assert.AreEqual(value, result.Result.Value.Value);
     }
 
     private class Item : IComparable<Item>

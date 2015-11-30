@@ -4,44 +4,83 @@ namespace PatternSearch.Structures.Trees
 {
   public class Node<T> : IComparable<Node<T>> where T : IComparable<T>, new()
   {
-    public Node<T> Left { get; private set; }
-    public Node<T> Right { get; private set; }
-    public T Value { get; internal set; }
+    private Node<T> _parent; 
+    private Node<T> _left; 
+    private Node<T> _right; 
+    private T _value;
+
+    public Node<T> Parent
+    {
+      get { return _parent; }
+      private set
+      {
+        if (value == null)
+        {
+          throw new InvalidOperationException("Parrent node cannot be null");
+        }
+
+        _parent = value;
+      }
+    }
+
+    public Node<T> Left
+    {
+      get { return _left; }
+      internal set
+      {
+        if (value == null)
+        {
+          throw new InvalidOperationException("Left node cannot be null");
+        }
+
+        _left = value;
+        _left.Parent = this;
+      }
+    }
+
+    public Node<T> Right
+    {
+      get { return _right; }
+      internal set
+      {
+        if (value == null)
+        {
+          throw new InvalidOperationException("Right node cannot be null");
+        }
+
+        _right = value;
+        _right.Parent = this;
+      }
+    }
+
+    public T Value 
+    {
+      get { return _value; }
+      internal set
+      {
+        if (value == null)
+        {
+          throw new InvalidOperationException("Value node cannot be null");
+        }
+
+        _value = value;
+      }
+    }
 
     public Node(T value)
     {
       Value = value;
-    }
-
-    public void AddLeft(T value)
-    {
-      if (Left != null)
-      {
-        throw new InvalidOperationException("Left node is occupied");
-      }
-
-      Left = new Node<T>(value);
-    }
-
-    public void AddRight(T value)
-    {
-
-      if (Right != null)
-      {
-        throw new InvalidOperationException("Left node is occupied");
-      }
-
-      Right = new Node<T>(value);
+      _parent = null;
     }
 
     public int CompareTo(Node<T> other)
     {
-      if (Value.CompareTo(other.Value) > 0)
+      if (_value.CompareTo(other.Value) > 0)
       {
         return 1;
       }
-      
-      if (Value.CompareTo(other.Value) < 0)
+
+      if (_value.CompareTo(other.Value) < 0)
       {
         return -1;
       }
