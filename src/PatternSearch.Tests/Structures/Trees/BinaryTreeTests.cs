@@ -97,103 +97,103 @@ namespace PatternSearch.Tests.Structures.Trees
     }
 
     [Test]
-    public void Delete_NullValue_ThrowArgumentNullException()
+    public void Remove_NullValue_ThrowArgumentNullException()
     {
       var root = new Item();
       var tree = new BinaryTree<Item>(root);
 
-      Assert.Throws<ArgumentNullException>(() => tree.Delete(null));
+      Assert.Throws<ArgumentNullException>(() => tree.Remove(null));
     }
 
     [Test]
-    public void Delete_RootValue_ThrowInvalidOperationException()
+    public void Remove_RootValue_ThrowInvalidOperationException()
     {
       var root = new Item();
       var tree = new BinaryTree<Item>(root);
 
-      Assert.Throws<InvalidOperationException>(() => tree.Delete(root));
+      Assert.Throws<InvalidOperationException>(() => tree.Remove(root));
     }
 
     [Test]
-    public void Delete_OnlyRight_RootExists()
+    public void Remove_OnlyRight_RootExists()
     {
       const int valueRight = 3;
       var root = new Item(2);
       var tree = new BinaryTree<Item>(root);
       tree.Insert(new Item(valueRight));
 
-      tree.Delete(new Item(valueRight));
+      tree.Remove(new Item(valueRight));
 
       Assert.AreEqual(root, tree.Root.Value);
     }
 
     [Test]
-    public void Delete_OnlyRight_RootLeftIsNull()
+    public void Remove_OnlyRight_RootLeftIsNull()
     {
       const int valueLeft = 3;
       var root = new Item(2);
       var tree = new BinaryTree<Item>(root);
       tree.Insert(new Item(valueLeft));
 
-      tree.Delete(new Item(valueLeft));
+      tree.Remove(new Item(valueLeft));
 
       Assert.IsNull(tree.Root.Left);
     }
 
     [Test]
-    public void Delete_OnlyRight_RootRightIsNull()
+    public void Remove_OnlyRight_RootRightIsNull()
     {
       const int valueRight = 3;
       var root = new Item(2);
       var tree = new BinaryTree<Item>(root);
       tree.Insert(new Item(valueRight));
 
-      tree.Delete(new Item(valueRight));
+      tree.Remove(new Item(valueRight));
 
       Assert.IsNull(tree.Root.Right);
     }
 
     [Test]
-    public void Delete_OnlyLeft_RootExists()
+    public void Remove_OnlyLeft_RootExists()
     {
       const int valueLeft = 1;
       var root = new Item(2);
       var tree = new BinaryTree<Item>(root);
       tree.Insert(new Item(valueLeft));
 
-      tree.Delete(new Item(valueLeft));
+      tree.Remove(new Item(valueLeft));
 
       Assert.AreEqual(root, tree.Root.Value);
     }
 
     [Test]
-    public void Delete_OnlyLeft_RootRightIsNull()
+    public void Remove_OnlyLeft_RootRightIsNull()
     {
       const int valueLeft = 1;
       var root = new Item(2);
       var tree = new BinaryTree<Item>(root);
       tree.Insert(new Item(valueLeft));
 
-      tree.Delete(new Item(valueLeft));
+      tree.Remove(new Item(valueLeft));
 
       Assert.IsNull(tree.Root.Right);
     }
 
     [Test]
-    public void Delete_OnlyLeft_RootLeftIsNull()
+    public void Remove_OnlyLeft_RootLeftIsNull()
     {
       const int valueLeft = 1;
       var root = new Item(2);
       var tree = new BinaryTree<Item>(root);
       tree.Insert(new Item(valueLeft));
 
-      tree.Delete(new Item(valueLeft));
+      tree.Remove(new Item(valueLeft));
 
       Assert.IsNull(tree.Root.Right);
     }
 
     [Test]
-    public void Delete_OnlyRightWithOnlyRightChild_RootLeftIsNull()
+    public void Remove_OnlyRightWithOnlyRightChild_RootLeftIsNull()
     {
       const int valueRight = 3;
       const int valueRightRight = 4;
@@ -202,13 +202,13 @@ namespace PatternSearch.Tests.Structures.Trees
       tree.Insert(new Item(valueRight));
       tree.Insert(new Item(valueRightRight));
 
-      tree.Delete(new Item(valueRight));
+      tree.Remove(new Item(valueRight));
 
       Assert.IsNull(tree.Root.Left);
     }
 
     [Test]
-    public void Delete_OnlyRightWithOnlyRightChild_RootRightRightIsNull()
+    public void Remove_OnlyRightWithOnlyRightChild_RootRightRightIsNull()
     {
       const int valueRight = 3;
       const int valueRightRight = 4;
@@ -217,13 +217,13 @@ namespace PatternSearch.Tests.Structures.Trees
       tree.Insert(new Item(valueRight));
       tree.Insert(new Item(valueRightRight));
 
-      tree.Delete(new Item(valueRight));
+      tree.Remove(new Item(valueRight));
 
       Assert.IsNull(tree.Root.Right.Right);
     }
 
     [Test]
-    public void Delete_OnlyRightWithOnlyRightChild_RootRightLeftIsNull()
+    public void Remove_OnlyRightWithOnlyRightChild_RootRightLeftIsNull()
     {
       const int valueRight = 3;
       const int valueRightRight = 4;
@@ -232,13 +232,13 @@ namespace PatternSearch.Tests.Structures.Trees
       tree.Insert(new Item(valueRight));
       tree.Insert(new Item(valueRightRight));
 
-      tree.Delete(new Item(valueRight));
+      tree.Remove(new Item(valueRight));
 
       Assert.IsNull(tree.Root.Right.Left);
     }
 
     [Test]
-    public void Delete_OnlyRightWithOnlyRightChild_RootRightIsRightRight()
+    public void Remove_OnlyRightWithOnlyRightChild_RootRightIsRightRight()
     {
       const int valueLeft = 3;
       const int valueRight = 4;
@@ -247,13 +247,13 @@ namespace PatternSearch.Tests.Structures.Trees
       tree.Insert(new Item(valueLeft));
       tree.Insert(new Item(valueRight));
 
-      tree.Delete(new Item(valueLeft));
+      tree.Remove(new Item(valueLeft));
 
       Assert.AreEqual(valueRight, tree.Root.Right.Value.Value);
     }
 
     [Test]
-    public void Delete_RightLeftWithOnlyRightChild_RootRightIsRightRight()
+    public void Remove_RightLeftWithOnlyRightChild_RootRightIsRightRight()
     {
       const int valueRight = 3;
       const int valueRightRight = 4;
@@ -264,13 +264,13 @@ namespace PatternSearch.Tests.Structures.Trees
       tree.Insert(new Item(valueRightRight));
       tree.Insert(new Item(valueLeft));
 
-      tree.Delete(new Item(valueRight));
+      tree.Remove(new Item(valueRight));
 
       Assert.AreEqual(valueRightRight, tree.Root.Right.Value.Value);
     }
 
     [Test]
-    public void Delete_RightLeftWithOnlyRightChild_RootRightRightIsNull()
+    public void Remove_RightLeftWithOnlyRightChild_RootRightRightIsNull()
     {
       const int valueRight = 3;
       const int valueRightRight = 4;
@@ -281,13 +281,13 @@ namespace PatternSearch.Tests.Structures.Trees
       tree.Insert(new Item(valueRightRight));
       tree.Insert(new Item(valueLeft));
 
-      tree.Delete(new Item(valueRight));
+      tree.Remove(new Item(valueRight));
 
       Assert.IsNull(tree.Root.Right.Right);
     }
 
     [Test]
-    public void Delete_RightLeftWithOnlyRightChild_RootLeftTheSame()
+    public void Remove_RightLeftWithOnlyRightChild_RootLeftTheSame()
     {
       const int valueRight = 3;
       const int valueRightRight = 4;
@@ -298,13 +298,13 @@ namespace PatternSearch.Tests.Structures.Trees
       tree.Insert(new Item(valueRightRight));
       tree.Insert(new Item(valueLeft));
 
-      tree.Delete(new Item(valueRight));
+      tree.Remove(new Item(valueRight));
 
       Assert.AreEqual(valueLeft, tree.Root.Left.Value.Value);
     }
 
     [Test]
-    public void Delete_RightLeftWithLeftChildRightChild_RootIsRight()
+    public void Remove_RightLeftWithLeftChildRightChild_RootIsRight()
     {
       const int valueRight = 5;
       const int valueRightLeft = 4;
@@ -317,13 +317,13 @@ namespace PatternSearch.Tests.Structures.Trees
       tree.Insert(new Item(valueLeft));
       tree.Insert(new Item(valueRightLeft));
 
-      tree.Delete(root);
+      tree.Remove(root);
 
       Assert.AreEqual(valueRight, tree.Root.Value.Value);
     }
 
     [Test]
-    public void Delete_RightLeftWithLeftChildRightChild_RootRightIsRightRight()
+    public void Remove_RightLeftWithLeftChildRightChild_RootRightIsRightRight()
     {
       const int valueRight = 5;
       const int valueRightLeft = 4;
@@ -336,13 +336,13 @@ namespace PatternSearch.Tests.Structures.Trees
       tree.Insert(new Item(valueLeft));
       tree.Insert(new Item(valueRightLeft));
 
-      tree.Delete(root);
+      tree.Remove(root);
 
       Assert.AreEqual(valueRightRight, tree.Root.Right.Value.Value);
     }
 
     [Test]
-    public void Delete_RightLeftWithLeftChildRightChild_RootRightRightIsNull()
+    public void Remove_RightLeftWithLeftChildRightChild_RootRightRightIsNull()
     {
       const int valueRight = 5;
       const int valueRightLeft = 4;
@@ -355,13 +355,13 @@ namespace PatternSearch.Tests.Structures.Trees
       tree.Insert(new Item(valueLeft));
       tree.Insert(new Item(valueRightLeft));
 
-      tree.Delete(root);
+      tree.Remove(root);
 
       Assert.IsNull(tree.Root.Right.Right);
     }
 
     [Test]
-    public void Delete_RightLeftWithLeftChildRightChild_RootRightLeftIsNull()
+    public void Remove_RightLeftWithLeftChildRightChild_RootRightLeftIsNull()
     {
       const int valueRight = 5;
       const int valueRightLeft = 4;
@@ -374,13 +374,13 @@ namespace PatternSearch.Tests.Structures.Trees
       tree.Insert(new Item(valueLeft));
       tree.Insert(new Item(valueRightLeft));
 
-      tree.Delete(root);
+      tree.Remove(root);
 
       Assert.IsNull(tree.Root.Right.Left);
     }
 
     [Test]
-    public void Delete_RightLeftWithLeftChildRightChild_RootLeftIsRightLeft()
+    public void Remove_RightLeftWithLeftChildRightChild_RootLeftIsRightLeft()
     {
       const int valueRight = 5;
       const int valueRightLeft = 4;
@@ -393,7 +393,7 @@ namespace PatternSearch.Tests.Structures.Trees
       tree.Insert(new Item(valueLeft));
       tree.Insert(new Item(valueRightLeft));
 
-      tree.Delete(root);
+      tree.Remove(root);
 
       Assert.AreEqual(valueRightLeft, tree.Root.Left.Value.Value);
     }

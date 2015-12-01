@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatternSearch.Console.Compa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatternSearch.Hashing", "PatternSearch.Hashing\PatternSearch.Hashing.csproj", "{229BC716-E3DB-404A-A0FE-C9A8984451DB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ConsoleTests", "ConsoleTests", "{628E476D-1F00-4923-9C6A-DD32EE5FE73B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -60,5 +62,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2C71294B-3BF4-4727-8934-1E5E22ECCE1E} = {628E476D-1F00-4923-9C6A-DD32EE5FE73B}
+		{30CF59F6-B5CF-4D40-9683-EB3FB1C3EC59} = {628E476D-1F00-4923-9C6A-DD32EE5FE73B}
+		{B96BFA58-8EB4-4296-84B6-1C50928EEBB9} = {628E476D-1F00-4923-9C6A-DD32EE5FE73B}
 	EndGlobalSection
 EndGlobal

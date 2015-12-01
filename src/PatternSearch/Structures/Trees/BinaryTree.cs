@@ -61,7 +61,7 @@ namespace PatternSearch.Structures.Trees
       return comparisons;
     }
 
-    public int Delete(T value)
+    public int Remove(T value)
     {
       if (value == null)
       {
