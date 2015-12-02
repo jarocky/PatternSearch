@@ -399,40 +399,40 @@ namespace PatternSearch.Tests.Structures.Trees
     }
 
     [Test]
-    public void Search_NullValue_ThrowArgumentNullException()
+    public void Find_NullValue_ThrowArgumentNullException()
     {
       var root = new Item();
       var tree = new BinaryTree<Item>(root);
 
-      Assert.Throws<ArgumentNullException>(() => tree.Search(null));
+      Assert.Throws<ArgumentNullException>(() => tree.Find(null));
     }
 
     [Test]
-    public void Search_ValueIsEqualRootValue_ReturnTrue()
+    public void Find_ValueIsEqualRootValue_ReturnTrue()
     {
       const int value = 2;
       var root = new Item(value);
       var tree = new BinaryTree<Item>(root);
 
-      var result = tree.Search(new Item(value));
+      var result = tree.Find(new Item(value));
 
       Assert.AreEqual(value, result.Result.Value.Value);
     }
 
     [Test]
-    public void Search_ValueIsNotPresentAndThereIsOnlyRoot_ReturnFalse()
+    public void Find_ValueIsNotPresentAndThereIsOnlyRoot_ReturnFalse()
     {
       const int value = 2;
       var root = new Item(1);
       var tree = new BinaryTree<Item>(root);
 
-      var result = tree.Search(new Item(value));
+      var result = tree.Find(new Item(value));
 
       Assert.IsNull(result.Result);
     }
 
     [Test]
-    public void Search_ValueIsNotPresentAndChildren_ReturnFalse()
+    public void Find_ValueIsNotPresentAndChildren_ReturnFalse()
     {
       const int value = 5;
       var root = new Item(2);
@@ -440,13 +440,13 @@ namespace PatternSearch.Tests.Structures.Trees
       tree.Insert(new Item(1));
       tree.Insert(new Item(3));
 
-      var result = tree.Search(new Item(value));
+      var result = tree.Find(new Item(value));
 
       Assert.IsNull(result.Result);
     }
 
     [Test]
-    public void Search_ValueIsInLeftChildrenOfRoot_ReturnTrue()
+    public void Find_ValueIsInLeftChildrenOfRoot_ReturnTrue()
     {
       const int value = 1;
       var root = new Item(2);
@@ -454,13 +454,13 @@ namespace PatternSearch.Tests.Structures.Trees
       tree.Insert(new Item(value));
       tree.Insert(new Item(3));
 
-      var result = tree.Search(new Item(value));
+      var result = tree.Find(new Item(value));
 
       Assert.AreEqual(value, result.Result.Value.Value);
     }
 
     [Test]
-    public void Search_ValueIsInRightChildrenOfRoot_ReturnTrue()
+    public void Find_ValueIsInRightChildrenOfRoot_ReturnTrue()
     {
       const int value = 3;
       var root = new Item(2);
@@ -468,7 +468,7 @@ namespace PatternSearch.Tests.Structures.Trees
       tree.Insert(new Item(1));
       tree.Insert(new Item(value));
 
-      var result = tree.Search(new Item(value));
+      var result = tree.Find(new Item(value));
 
       Assert.AreEqual(value, result.Result.Value.Value);
     }

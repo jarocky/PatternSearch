@@ -4,19 +4,30 @@ namespace PatternSearch.Structures.Lists
 {
   internal class Item<T> where T : IComparable<T>,  new()
   {
-    public Item<T>[] Next { get; private set; }
+    public Item<T> Next { get; internal set; }
+    public Item<T> Down { get; internal set; }
     public T Value { get; private set; }
-
-    public Item(T value, int level)
-    {
-      Value = value;
-      Next = new Item<T>[level];
-    }
+    public int Level { get; private set; }
 
     public Item(int level)
     {
-      Value = default(T);
-      Next = new Item<T>[level];
+      Level = level;
+    }
+
+    public Item(T value, int level)
+    {
+      if (value == null)
+      {
+        throw new ArgumentNullException("value", "Cannot be null");
+      }
+
+      if (level < 0)
+      {
+        throw new ArgumentNullException("level", "Cannot be null");
+      }
+
+      Value = value;
+      Level = level;
     }
   }
 }

@@ -68,7 +68,7 @@ namespace PatternSearch.Structures.Trees
         throw new ArgumentNullException("value", "Cannot be null");
       }
 
-      var result = Search(value);
+      var result = Find(value);
       var comparisons = result.ComparisonsCount;
       var nodeToDelete = result.Result;
       if (nodeToDelete == null)
@@ -128,17 +128,17 @@ namespace PatternSearch.Structures.Trees
       return comparisons;
     }
 
-    public OperationResult<Node<T>> Search(T value)
+    public OperationResult<Node<T>> Find(T value)
     {
       if (value == null)
       {
         throw new ArgumentNullException("value", "Cannot be null");
       }
 
-      return Search(value, Root);
+      return Find(value, Root);
     }
 
-    private OperationResult<Node<T>> Search(T value, Node<T> currentNode)
+    private OperationResult<Node<T>> Find(T value, Node<T> currentNode)
     {
       var comparisons = 0;
       comparisons++;

@@ -1,101 +1,127 @@
 ﻿using System;
-using System.Collections.Generic;
+using PatternSearch.Common;
 
 namespace PatternSearch.Structures.Lists
 {
   public class SkipList<T> where T : IComparable<T>, new()
   {
-    private readonly Item<T> _head = new Item<T>(33); // The max. number of levels is 33
-    private readonly Random _rand = new Random();
-    private int _levels = 1;
+    private Item<T> _leftHead = new Item<T>(0);
+    private readonly IRandomWrapper _random;
+    private int _levels = 0;
+
+    public SkipList(IRandomWrapper random)
+    {
+      if (random == null)
+      {
+        throw new ArgumentNullException("random", "Cannot be null");
+      }
+
+      _random = random;
+    }
 
     public void Insert(T value)
     {
-      // Determine the level of the new node. Generate a random number R. The number of
-      // 1-bits before we encounter the first 0-bit is the level of the node. Since R is
-      // 32-bit, the level can be at most 32.
+      if (!Find(value))
+      {
+        return;
+      }
+
       var level = 0;
-      for (int r = _rand.Next(); (r & 1) == 1; r >>= 1)
+      for (int r = _random.Next(); (r & 1) == 1; r >>= 1)
       {
         level++;
-        if (level == _levels)
+        if (level > _levels)
         {
           _levels++; 
           break;
         }
       }
 
-      var newItem = new Item<T>(value, level + 1);
-      var cur = _head;
-      for (var i = _levels - 1; i >= 0; i--)
+      while (_leftHead.Level < _levels)
       {
-        for (; cur.Next[i] != null; cur = cur.Next[i])
+        _leftHead = new Item<T>(_leftHead.Level + 1) { Down = _leftHead };
+      }
+
+      var newItem = new Item<T>(value, level);
+      var cur = _leftHead;
+      for (var currentLevel = _levels; currentLevel > 0; currentLevel--)
+      {
+        while (cur.Next != null || cur.Next.Value.CompareTo(value) < 0)
         {
-          if (cur.Next[i].Value.CompareTo(value) > 0)
+          if (currentLevel == level)
           {
+            if (cur.Next == null)
+            {
+              cur.Next = newItem;
+            }
+            else
+            {
+              newItem.Next = cur.Next.Next;
+              cur.Next = newItem;
+            }
             break;
           }
+          cur = cur.Next;
         }
+        cur = cur.Down;
+      }
 
-        if (i <= level)
+      while (cur.Level > 0)
+      {
+        cur.Next.Down = new Item<T>(cur.Next.Value, cur.Level - 1);
+        if (cur.Down.Next != null)
         {
-          newItem.Next[i] = cur.Next[i]; 
-          cur.Next[i] = newItem;
+          cur.Next.Down.Next = cur.Down.Next;
         }
+        cur.Down.Next = cur.Next.Down;
+        cur = cur.Down;
       }
     }
 
-    public bool Contains(T value)
+    public bool Find(T value)
     {
-      Item<T> cur = _head;
-      for (int i = _levels - 1; i >= 0; i--)
+      var result = FindItemWithNextEqual(value);
+      if (result == null || result.Next == null)
       {
-        for (; cur.Next[i] != null; cur = cur.Next[i])
+        return false;
+      }
+
+      return true;
+    }
+
+    private Item<T> FindItemWithNextEqual(T value)
+    {
+      var cur = _leftHead;
+      while (cur.Level >= 0 && (cur.Next != null || cur.Next.Value.CompareTo(value) <= 0))
+      {
+        if (cur.Next.Value.CompareTo(value) == 0)
         {
-          if (cur.Next[i].Value.CompareTo(value) > 0)
-          {
-            break;
-          }
-          if (cur.Next[i].Value.CompareTo(value) == 0)
-          {
-            return true;
-          }
+          return cur;
+        }
+
+        if (cur.Next.Value.CompareTo(value) < 0)
+        {
+          cur = cur.Down;
         }
       }
-      return false;
+
+      return null;
     }
 
     public bool Remove(T value)
     {
-      var cur = _head;
-
-      var found = false;
-      for (int i = _levels - 1; i >= 0; i--)
+      var item = FindItemWithNextEqual(value);
+      if (item == null || item.Next == null)
       {
-        for (; cur.Next[i] != null; cur = cur.Next[i])
-        {
-          if (cur.Next[i].Value.CompareTo(value) == 0)
-          {
-            found = true;
-            cur.Next[i] = cur.Next[i].Next[i];
-            break;
-          }
-
-          if (cur.Next[i].Value.CompareTo(value) > 0) break;
-        }
+        return false;
       }
 
-      return found;
-    }
-
-    public IEnumerable<T> Enumerate()
-    {
-      var cur = _head.Next[0];
-      while (cur != null)
+      for (var i = item.Level; i >= 0; i--)
       {
-        yield return cur.Value;
-        cur = cur.Next[0];
+        item.Next = item.Next.Next;
       }
+
+      return true;
     }
   }
 }

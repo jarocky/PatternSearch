@@ -67,6 +67,10 @@
     <Compile Include="Structures\Trees\Node.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\PatternSearch.Common\PatternSearch.Common.csproj">
+      <Project>{695A8C9A-EA39-4108-99E3-701DEC1BA0E4}</Project>
+      <Name>PatternSearch.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PatternSearch.Hashing\PatternSearch.Hashing.csproj">
       <Project>{229BC716-E3DB-404A-A0FE-C9A8984451DB}</Project>
       <Name>PatternSearch.Hashing</Name>
