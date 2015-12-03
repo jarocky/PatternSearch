@@ -1,4 +1,7 @@
-﻿namespace PatternSearch.Hashing
+﻿using System.Linq;
+using System.Text;
+
+namespace PatternSearch.Hashing
 {
   public class HashingService : IHashingService
   {
@@ -13,10 +16,9 @@
 
     public long Hash(string s)
     {
-      var longs = new long[s.Length * sizeof(char)];
-      System.Buffer.BlockCopy(s.ToCharArray(), 0, longs, 0, longs.Length);
+      var bytes = Encoding.Default.GetBytes(s).Select(b => (long)b).ToArray();
 
-      return Hash(longs);
+      return Hash(bytes);
     }
 
     public long Hash(long[] t)

@@ -10,6 +10,11 @@ namespace PatternSearch.Common
       return Encoding.Default.GetBytes(str);
     }
 
+    public string GetString(byte oneByte)
+    {
+      return GetString(new byte[] { oneByte });
+    }
+
     public string GetString(byte[] bytes)
     {
       return Encoding.Default.GetString(bytes);

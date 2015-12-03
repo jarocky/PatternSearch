@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatternSearch", "PatternSearch\PatternSearch.csproj", "{62D5878D-BE2D-4499-9A96-72AE6A2913A8}"
 EndProject
@@ -20,6 +20,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatternSearch.Hashing", "PatternSearch.Hashing\PatternSearch.Hashing.csproj", "{229BC716-E3DB-404A-A0FE-C9A8984451DB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ConsoleTests", "ConsoleTests", "{628E476D-1F00-4923-9C6A-DD32EE5FE73B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatternSearch.Console.WordsCounter.Tests", "PatternSearch.Console.WordsCounter.Tests\PatternSearch.Console.WordsCounter.Tests.csproj", "{0173E010-2A3D-46D4-8784-A1F5ABAE2503}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +61,10 @@ Global
 		{229BC716-E3DB-404A-A0FE-C9A8984451DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{229BC716-E3DB-404A-A0FE-C9A8984451DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{229BC716-E3DB-404A-A0FE-C9A8984451DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0173E010-2A3D-46D4-8784-A1F5ABAE2503}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0173E010-2A3D-46D4-8784-A1F5ABAE2503}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0173E010-2A3D-46D4-8784-A1F5ABAE2503}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0173E010-2A3D-46D4-8784-A1F5ABAE2503}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,5 +73,6 @@ Global
 		{2C71294B-3BF4-4727-8934-1E5E22ECCE1E} = {628E476D-1F00-4923-9C6A-DD32EE5FE73B}
 		{30CF59F6-B5CF-4D40-9683-EB3FB1C3EC59} = {628E476D-1F00-4923-9C6A-DD32EE5FE73B}
 		{B96BFA58-8EB4-4296-84B6-1C50928EEBB9} = {628E476D-1F00-4923-9C6A-DD32EE5FE73B}
+		{0173E010-2A3D-46D4-8784-A1F5ABAE2503} = {628E476D-1F00-4923-9C6A-DD32EE5FE73B}
 	EndGlobalSection
 EndGlobal

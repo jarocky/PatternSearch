@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using PatternSearch.Hashing;
 
 namespace PatternSearch.Structures.Hashing
 {
-  public class HashingArray
+  public class HashingArray : IEnumerable<List<Word>>
   {
     private readonly List<Word>[] _array;
     private readonly IHashingService _hashingService;
@@ -40,6 +41,16 @@ namespace PatternSearch.Structures.Hashing
       }
 
       word.Increment();
+    }
+
+    public IEnumerator<List<Word>> GetEnumerator()
+    {
+      return _array.Cast<List<Word>>().GetEnumerator();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+      return GetEnumerator();
     }
   }
 }
