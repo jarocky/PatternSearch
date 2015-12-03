@@ -58,6 +58,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Search\RabinKarpPatternSearcherTests.cs" />
     <Compile Include="Search\SearchResultTests.cs" />
+    <Compile Include="Structures\Lists\ItemTests.cs" />
+    <Compile Include="Structures\Lists\SkipListTests.cs" />
     <Compile Include="Structures\Suffix\SuffixArrayTests.cs" />
     <Compile Include="Structures\Suffix\SuffixTreeTests.cs" />
     <Compile Include="Structures\Trees\BinaryTreeTests.cs" />

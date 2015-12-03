@@ -9,6 +9,8 @@ namespace PatternSearch.Structures.Lists
     private readonly IRandomWrapper _random;
     private int _levels = 0;
 
+    internal Item<T> LeftHead { get { return _leftHead; } }
+
     public SkipList(IRandomWrapper random)
     {
       if (random == null)
@@ -21,48 +23,51 @@ namespace PatternSearch.Structures.Lists
 
     public void Insert(T value)
     {
-      if (!Find(value))
-      {
-        return;
-      }
-
       var level = 0;
       for (int r = _random.Next(); (r & 1) == 1; r >>= 1)
       {
         level++;
         if (level > _levels)
         {
-          _levels++; 
+          _levels++;
           break;
         }
       }
 
-      while (_leftHead.Level < _levels)
+      var leftHeadCurrent = _leftHead;
+      if (_leftHead.Level < _levels)
       {
-        _leftHead = new Item<T>(_leftHead.Level + 1) { Down = _leftHead };
+        leftHeadCurrent = new Item<T>(_levels) { Down = _leftHead };
       }
 
       var newItem = new Item<T>(value, level);
-      var cur = _leftHead;
-      for (var currentLevel = _levels; currentLevel > 0; currentLevel--)
+      var cur = leftHeadCurrent;
+      for (var currentLevel = _levels; currentLevel >= 0; currentLevel--)
       {
-        while (cur.Next != null || cur.Next.Value.CompareTo(value) < 0)
+        while (cur.Next != null || (cur.Next != null && cur.Next.Value.CompareTo(value) < 0))
         {
-          if (currentLevel == level)
+          if (cur.Next != null && cur.Next.Value.CompareTo(value) == 0)
           {
-            if (cur.Next == null)
-            {
-              cur.Next = newItem;
-            }
-            else
-            {
-              newItem.Next = cur.Next.Next;
-              cur.Next = newItem;
-            }
-            break;
+            return;
           }
+
           cur = cur.Next;
         }
+
+        if (currentLevel == level)
+        {
+          if (cur.Next == null)
+          {
+            cur.Next = newItem;
+          }
+          else
+          {
+            newItem.Next = cur.Next.Next;
+            cur.Next = newItem;
+          }
+          break;
+        }
+
         cur = cur.Down;
       }
 
@@ -76,36 +81,8 @@ namespace PatternSearch.Structures.Lists
         cur.Down.Next = cur.Next.Down;
         cur = cur.Down;
       }
-    }
 
-    public bool Find(T value)
-    {
-      var result = FindItemWithNextEqual(value);
-      if (result == null || result.Next == null)
-      {
-        return false;
-      }
-
-      return true;
-    }
-
-    private Item<T> FindItemWithNextEqual(T value)
-    {
-      var cur = _leftHead;
-      while (cur.Level >= 0 && (cur.Next != null || cur.Next.Value.CompareTo(value) <= 0))
-      {
-        if (cur.Next.Value.CompareTo(value) == 0)
-        {
-          return cur;
-        }
-
-        if (cur.Next.Value.CompareTo(value) < 0)
-        {
-          cur = cur.Down;
-        }
-      }
-
-      return null;
+      _leftHead = leftHeadCurrent;
     }
 
     public bool Remove(T value)
@@ -122,6 +99,36 @@ namespace PatternSearch.Structures.Lists
       }
 
       return true;
+    }
+
+    public bool Find(T value)
+    {
+      var result = FindItemWithNextEqual(value);
+      if (result == null || result.Next == null)
+      {
+        return false;
+      }
+
+      return true;
+    }
+
+    private Item<T> FindItemWithNextEqual(T value)
+    {
+      var cur = _leftHead;
+      while (cur.Level >= 0 && cur.Next != null && cur.Next.Value.CompareTo(value) <= 0)
+      {
+        if (cur.Next.Value.CompareTo(value) == 0)
+        {
+          return cur;
+        }
+
+        if (cur.Next.Value.CompareTo(value) < 0)
+        {
+          cur = cur.Down;
+        }
+      }
+
+      return null;
     }
   }
 }

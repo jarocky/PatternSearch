@@ -2,7 +2,7 @@
 
 namespace PatternSearch.Structures.Lists
 {
-  internal class Item<T> where T : IComparable<T>,  new()
+  internal class Item<T> where T : IComparable<T>
   {
     public Item<T> Next { get; internal set; }
     public Item<T> Down { get; internal set; }
@@ -23,7 +23,7 @@ namespace PatternSearch.Structures.Lists
 
       if (level < 0)
       {
-        throw new ArgumentNullException("level", "Cannot be null");
+        throw new ArgumentException("Cannot be less than null", "level");
       }
 
       Value = value;
