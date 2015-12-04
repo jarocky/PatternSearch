@@ -21,7 +21,7 @@ namespace PatternSearch.Structures.Lists
       _random = random;
     }
 
-    public void Insert(T value)
+    public int Insert(T value)
     {
       var level = 0;
       for (int r = _random.Next(); (r & 1) == 1; r >>= 1)
@@ -42,16 +42,20 @@ namespace PatternSearch.Structures.Lists
 
       var newItem = new Item<T>(value, level);
       var cur = leftHeadCurrent;
+      var comparisonsCount = 0;
       for (var currentLevel = _levels; currentLevel >= 0; currentLevel--)
       {
+        comparisonsCount++;
         while (cur.Next != null || (cur.Next != null && cur.Next.Value.CompareTo(value) < 0))
         {
+          comparisonsCount++;
           if (cur.Next != null && cur.Next.Value.CompareTo(value) == 0)
           {
-            return;
+            return comparisonsCount;
           }
 
           cur = cur.Next;
+          comparisonsCount++;
         }
 
         if (currentLevel == level)
@@ -71,64 +75,87 @@ namespace PatternSearch.Structures.Lists
         cur = cur.Down;
       }
 
+      comparisonsCount++;
       while (cur.Level > 0)
       {
         cur.Next.Down = new Item<T>(cur.Next.Value, cur.Level - 1);
+        comparisonsCount++;
         if (cur.Down.Next != null)
         {
           cur.Next.Down.Next = cur.Down.Next;
         }
         cur.Down.Next = cur.Next.Down;
         cur = cur.Down;
+        comparisonsCount++;
       }
 
       _leftHead = leftHeadCurrent;
+
+      return comparisonsCount;
     }
 
-    public bool Remove(T value)
+    public int Remove(T value)
     {
-      var item = FindItemWithNextEqual(value);
+      var result = FindItemWithNextEqual(value);
+      var item = result.Item1;
+      var comparisonsCount = result.Item2;
       if (item == null || item.Next == null)
       {
-        return false;
+        return comparisonsCount;
       }
 
+      comparisonsCount++;
       for (var i = item.Level; i >= 0; i--)
       {
         item.Next = item.Next.Next;
+        comparisonsCount++;
       }
 
-      return true;
+      return comparisonsCount;
     }
 
-    public bool Find(T value)
+    public OperationResult<bool> Find(T value)
     {
       var result = FindItemWithNextEqual(value);
-      if (result == null || result.Next == null)
+      var comparisonsCount = result.Item2;
+      if (result.Item1 == null || result.Item1.Next == null)
       {
-        return false;
+        return new OperationResult<bool>()
+        {
+          Result = false,
+          ComparisonsCount = comparisonsCount
+        };
       }
 
-      return true;
+      return new OperationResult<bool>()
+      {
+        Result = true,
+        ComparisonsCount = comparisonsCount
+      };
     }
 
-    private Item<T> FindItemWithNextEqual(T value)
+    private Tuple<Item<T>, int> FindItemWithNextEqual(T value)
     {
       var cur = _leftHead;
+      var comparisonsCount = 1;
       while (cur.Level >= 0 && cur.Next != null && cur.Next.Value.CompareTo(value) <= 0)
       {
+        comparisonsCount++;
         if (cur.Next.Value.CompareTo(value) == 0)
         {
-          return cur;
+          return new Tuple<Item<T>, int>(cur, comparisonsCount);
         }
 
+        comparisonsCount++;
         if (cur.Next.Value.CompareTo(value) < 0)
         {
           cur = cur.Down;
         }
+
+        comparisonsCount++;
       }
 
-      return null;
+      return new Tuple<Item<T>, int>(null, comparisonsCount);
     }
   }
 }

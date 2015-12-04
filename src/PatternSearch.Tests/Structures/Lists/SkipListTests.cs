@@ -21,7 +21,42 @@ namespace PatternSearch.Tests.Structures.Lists
     }
 
     [Test]
-    public void Insert_FirstWithProperLevel_LeftHeadIsEqualLevel()
+    public void Insert_FirstWithOneLevel_LeftHeadIsEqualLevel()
+    {
+      const int level = 0;
+      A.CallTo(() => _randomFake.Next()).Returns(level);
+
+      _skipList.Insert(new Item(0));
+
+      Assert.AreEqual(level, _skipList.LeftHead.Level);
+    }
+
+    [Test]
+    public void Insert_FirstWithOneLevel_ItemExistsOnTheMaxLevel()
+    {
+      const int level = 0;
+      var item = new Item(0);
+      A.CallTo(() => _randomFake.Next()).Returns(level);
+
+      _skipList.Insert(item);
+
+      Assert.AreEqual(item, _skipList.LeftHead.Next.Value);
+    }
+
+    [Test]
+    public void Insert_FirstWithOneLevel_ItemNotExistsOnPreviousLevel()
+    {
+      const int level = 0;
+      var item = new Item(0);
+      A.CallTo(() => _randomFake.Next()).Returns(level);
+
+      _skipList.Insert(item);
+
+      Assert.IsNull(_skipList.LeftHead.Next.Down);
+    }
+
+    [Test]
+    public void Insert_FirstWithTwoLevels_LeftHeadIsEqualLevel()
     {
       const int level = 1;
       A.CallTo(() => _randomFake.Next()).Returns(level);
@@ -32,7 +67,7 @@ namespace PatternSearch.Tests.Structures.Lists
     }
 
     [Test]
-    public void Insert_FirstWithProperLevel_ItemExistsOnTheMaxLevel()
+    public void Insert_FirstWithTwoLevels_ItemExistsOnTheMaxLevel()
     {
       const int level = 1;
       var item = new Item(0);
@@ -44,7 +79,7 @@ namespace PatternSearch.Tests.Structures.Lists
     }
 
     [Test]
-    public void Insert_FirstProperLevel_ItemExistsOnTheMaxLevel()
+    public void Insert_FirstWithTwoLevels_ItemExistsOnPreviousLevel()
     {
       const int level = 1;
       var item = new Item(0);
@@ -52,7 +87,19 @@ namespace PatternSearch.Tests.Structures.Lists
 
       _skipList.Insert(item);
 
-      Assert.AreEqual(item, _skipList.LeftHead.Next.Value);
+      Assert.AreEqual(item, _skipList.LeftHead.Next.Down.Value);
+    }
+
+    [Test]
+    public void Insert_First_ItemExistsOnHeadPreviousLevel()
+    {
+      const int level = 1;
+      var item = new Item(0);
+      A.CallTo(() => _randomFake.Next()).Returns(level);
+
+      _skipList.Insert(item);
+
+      Assert.AreEqual(item, _skipList.LeftHead.Down.Next.Value);
     }
 
     private class Item : IComparable<Item>
