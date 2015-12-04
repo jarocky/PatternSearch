@@ -2,19 +2,9 @@
 
 namespace PatternSearch.Structures.Trees
 {
-  public class BinaryTree<T> where T : IComparable<T>, new()
+  public class BinaryTree<T> where T : class, IComparable<T>
   {
     protected internal Node<T> Root { get; protected set; }
-
-    public BinaryTree(T rootValue)
-    {
-      if (rootValue == null)
-      {
-        throw new ArgumentNullException("rootValue", "Cannot be null");
-      }
-
-      Root = new Node<T>(rootValue);
-    }
 
     public int Insert(T value)
     {
@@ -24,6 +14,12 @@ namespace PatternSearch.Structures.Trees
       }
 
       var comparisons = 0;
+      if (Root == null)
+      {
+        Root = new Node<T>(value);
+        return comparisons;
+      }
+
       var currentNode = Root;
       while (true)
       {

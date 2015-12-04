@@ -4,15 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0173E010-2A3D-46D4-8784-A1F5ABAE2503}</ProjectGuid>
+    <ProjectGuid>{07018EBC-70D7-40FD-BD22-094A8CC0322A}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PatternSearch.Console.WordsCounter.Tests</RootNamespace>
-    <AssemblyName>PatternSearch.Console.WordsCounter.Tests</AssemblyName>
+    <RootNamespace>PatternSearch.Console.Structures.Tests</RootNamespace>
+    <AssemblyName>PatternSearch.Console.Structures.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -54,10 +52,6 @@
     <ProjectReference Include="..\PatternSearch.Common\PatternSearch.Common.csproj">
       <Project>{695a8c9a-ea39-4108-99e3-701dec1ba0e4}</Project>
       <Name>PatternSearch.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PatternSearch.Hashing\PatternSearch.Hashing.csproj">
-      <Project>{229bc716-e3db-404a-a0fe-c9a8984451db}</Project>
-      <Name>PatternSearch.Hashing</Name>
     </ProjectReference>
     <ProjectReference Include="..\PatternSearch\PatternSearch.csproj">
       <Project>{62d5878d-be2d-4499-9a96-72ae6a2913a8}</Project>

@@ -2,7 +2,7 @@
 
 namespace PatternSearch.Structures.Trees
 {
-  public class Node<T> : IComparable<Node<T>> where T : IComparable<T>, new()
+  public class Node<T> : IComparable<Node<T>> where T : class, IComparable<T>
   {
     private Node<T> _parent; 
     private Node<T> _left; 

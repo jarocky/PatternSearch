@@ -3,7 +3,7 @@ using PatternSearch.Common;
 
 namespace PatternSearch.Structures.Lists
 {
-  public class SkipList<T> where T : IComparable<T>, new()
+  public class SkipList<T> where T : class, IComparable<T>
   {
     private Item<T> _leftHead = new Item<T>(0);
     private readonly IRandomWrapper _random;

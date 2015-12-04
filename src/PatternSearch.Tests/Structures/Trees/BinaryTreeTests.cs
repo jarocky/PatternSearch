@@ -8,27 +8,51 @@ namespace PatternSearch.Tests.Structures.Trees
   public class BinaryTreeTests
   {
     [Test]
-    public void Constructor_NullValue_ThrowArgumentNullException()
-    {
-      Item value = null;
-
-      Assert.Throws<ArgumentNullException>(() => new BinaryTree<Item>(value));
-    }
-
-    [Test]
     public void Insert_NullValue_ThrowArgumentNullException()
     {
-      var root = new Item();
-      var tree = new BinaryTree<Item>(root);
+      var tree = new BinaryTree<Item>();
 
       Assert.Throws<ArgumentNullException>(() => tree.Insert(null));
     }
 
     [Test]
+    public void Insert_Root_AddRoot()
+    {
+      var root = 1;
+      var tree = new BinaryTree<Item>();
+
+      tree.Insert(new Item(root));
+
+      Assert.AreEqual(root, tree.Root.Value.Value);
+    }
+
+    [Test]
+    public void Insert_Root_RootLeftIsNull()
+    {
+      var root = 1;
+      var tree = new BinaryTree<Item>();
+
+      tree.Insert(new Item(root));
+
+      Assert.IsNull(tree.Root.Left);
+    }
+
+    [Test]
+    public void Insert_Root_RootRightIsNull()
+    {
+      var root = 1;
+      var tree = new BinaryTree<Item>();
+
+      tree.Insert(new Item(root));
+
+      Assert.IsNull(tree.Root.Right);
+    }
+
+    [Test]
     public void Insert_GreaterValueThanRoot_AddRightNode()
     {
-      var root = new Item(1);
-      var tree = new BinaryTree<Item>(root);
+      var tree = new BinaryTree<Item>();
+      tree.Insert(new Item(1));
       const int value = 2;
 
       tree.Insert(new Item(value));
@@ -39,8 +63,8 @@ namespace PatternSearch.Tests.Structures.Trees
     [Test]
     public void Insert_GreaterValueThanRoot_LeftNodeIsNull()
     {
-      var root = new Item(1);
-      var tree = new BinaryTree<Item>(root);
+      var tree = new BinaryTree<Item>();
+      tree.Insert(new Item(1));
       const int valueRight = 2;
 
       tree.Insert(new Item(valueRight));
@@ -51,8 +75,8 @@ namespace PatternSearch.Tests.Structures.Trees
     [Test]
     public void Insert_SmallerValueThanRoot_AddLeftNode()
     {
-      var root = new Item(2);
-      var tree = new BinaryTree<Item>(root);
+      var tree = new BinaryTree<Item>();
+      tree.Insert(new Item(2));
       const int valueLeft = 1;
 
       tree.Insert(new Item(valueLeft));
@@ -63,8 +87,8 @@ namespace PatternSearch.Tests.Structures.Trees
     [Test]
     public void Insert_SmallerValueThanRoot_RightNodeIsNull()
     {
-      var root = new Item(2);
-      var tree = new BinaryTree<Item>(root);
+      var tree = new BinaryTree<Item>();
+      tree.Insert(new Item(2));
       const int valueLeft = 1;
 
       tree.Insert(new Item(valueLeft));
@@ -76,8 +100,8 @@ namespace PatternSearch.Tests.Structures.Trees
     public void Insert_EqualValueThanRoot_LeftNodeIsNull()
     {
       const int value = 1;
-      var root = new Item(value);
-      var tree = new BinaryTree<Item>(root);
+      var tree = new BinaryTree<Item>();
+      tree.Insert(new Item(value));
 
       tree.Insert(new Item(value));
 
@@ -88,8 +112,8 @@ namespace PatternSearch.Tests.Structures.Trees
     public void InsertEqualValueThanRoot_RightNodeIsNull()
     {
       const int value = 1;
-      var root = new Item(value);
-      var tree = new BinaryTree<Item>(root);
+      var tree = new BinaryTree<Item>();
+      tree.Insert(new Item(value));
 
       tree.Insert(new Item(value));
 
@@ -99,8 +123,7 @@ namespace PatternSearch.Tests.Structures.Trees
     [Test]
     public void Remove_NullValue_ThrowArgumentNullException()
     {
-      var root = new Item();
-      var tree = new BinaryTree<Item>(root);
+      var tree = new BinaryTree<Item>();
 
       Assert.Throws<ArgumentNullException>(() => tree.Remove(null));
     }
@@ -109,7 +132,8 @@ namespace PatternSearch.Tests.Structures.Trees
     public void Remove_RootValue_ThrowInvalidOperationException()
     {
       var root = new Item();
-      var tree = new BinaryTree<Item>(root);
+      var tree = new BinaryTree<Item>();
+      tree.Insert(root);
 
       Assert.Throws<InvalidOperationException>(() => tree.Remove(root));
     }
@@ -119,7 +143,8 @@ namespace PatternSearch.Tests.Structures.Trees
     {
       const int valueRight = 3;
       var root = new Item(2);
-      var tree = new BinaryTree<Item>(root);
+      var tree = new BinaryTree<Item>();
+      tree.Insert(root);
       tree.Insert(new Item(valueRight));
 
       tree.Remove(new Item(valueRight));
@@ -132,7 +157,8 @@ namespace PatternSearch.Tests.Structures.Trees
     {
       const int valueLeft = 3;
       var root = new Item(2);
-      var tree = new BinaryTree<Item>(root);
+      var tree = new BinaryTree<Item>();
+      tree.Insert(root);
       tree.Insert(new Item(valueLeft));
 
       tree.Remove(new Item(valueLeft));
@@ -145,7 +171,8 @@ namespace PatternSearch.Tests.Structures.Trees
     {
       const int valueRight = 3;
       var root = new Item(2);
-      var tree = new BinaryTree<Item>(root);
+      var tree = new BinaryTree<Item>();
+      tree.Insert(root);
       tree.Insert(new Item(valueRight));
 
       tree.Remove(new Item(valueRight));
@@ -158,7 +185,8 @@ namespace PatternSearch.Tests.Structures.Trees
     {
       const int valueLeft = 1;
       var root = new Item(2);
-      var tree = new BinaryTree<Item>(root);
+      var tree = new BinaryTree<Item>();
+      tree.Insert(root);
       tree.Insert(new Item(valueLeft));
 
       tree.Remove(new Item(valueLeft));
@@ -171,7 +199,8 @@ namespace PatternSearch.Tests.Structures.Trees
     {
       const int valueLeft = 1;
       var root = new Item(2);
-      var tree = new BinaryTree<Item>(root);
+      var tree = new BinaryTree<Item>();
+      tree.Insert(root);
       tree.Insert(new Item(valueLeft));
 
       tree.Remove(new Item(valueLeft));
@@ -184,7 +213,8 @@ namespace PatternSearch.Tests.Structures.Trees
     {
       const int valueLeft = 1;
       var root = new Item(2);
-      var tree = new BinaryTree<Item>(root);
+      var tree = new BinaryTree<Item>();
+      tree.Insert(root);
       tree.Insert(new Item(valueLeft));
 
       tree.Remove(new Item(valueLeft));
@@ -198,7 +228,8 @@ namespace PatternSearch.Tests.Structures.Trees
       const int valueRight = 3;
       const int valueRightRight = 4;
       var root = new Item(2);
-      var tree = new BinaryTree<Item>(root);
+      var tree = new BinaryTree<Item>();
+      tree.Insert(root);
       tree.Insert(new Item(valueRight));
       tree.Insert(new Item(valueRightRight));
 
@@ -213,7 +244,8 @@ namespace PatternSearch.Tests.Structures.Trees
       const int valueRight = 3;
       const int valueRightRight = 4;
       var root = new Item(2);
-      var tree = new BinaryTree<Item>(root);
+      var tree = new BinaryTree<Item>();
+      tree.Insert(root);
       tree.Insert(new Item(valueRight));
       tree.Insert(new Item(valueRightRight));
 
@@ -228,7 +260,8 @@ namespace PatternSearch.Tests.Structures.Trees
       const int valueRight = 3;
       const int valueRightRight = 4;
       var root = new Item(2);
-      var tree = new BinaryTree<Item>(root);
+      var tree = new BinaryTree<Item>();
+      tree.Insert(root);
       tree.Insert(new Item(valueRight));
       tree.Insert(new Item(valueRightRight));
 
@@ -243,7 +276,8 @@ namespace PatternSearch.Tests.Structures.Trees
       const int valueLeft = 3;
       const int valueRight = 4;
       var root = new Item(2);
-      var tree = new BinaryTree<Item>(root);
+      var tree = new BinaryTree<Item>();
+      tree.Insert(root);
       tree.Insert(new Item(valueLeft));
       tree.Insert(new Item(valueRight));
 
@@ -259,7 +293,8 @@ namespace PatternSearch.Tests.Structures.Trees
       const int valueRightRight = 4;
       const int valueLeft = 1;
       var root = new Item(2);
-      var tree = new BinaryTree<Item>(root);
+      var tree = new BinaryTree<Item>();
+      tree.Insert(root);
       tree.Insert(new Item(valueRight));
       tree.Insert(new Item(valueRightRight));
       tree.Insert(new Item(valueLeft));
@@ -276,7 +311,8 @@ namespace PatternSearch.Tests.Structures.Trees
       const int valueRightRight = 4;
       const int valueLeft = 1;
       var root = new Item(2);
-      var tree = new BinaryTree<Item>(root);
+      var tree = new BinaryTree<Item>();
+      tree.Insert(root);
       tree.Insert(new Item(valueRight));
       tree.Insert(new Item(valueRightRight));
       tree.Insert(new Item(valueLeft));
@@ -293,7 +329,8 @@ namespace PatternSearch.Tests.Structures.Trees
       const int valueRightRight = 4;
       const int valueLeft = 1;
       var root = new Item(2);
-      var tree = new BinaryTree<Item>(root);
+      var tree = new BinaryTree<Item>();
+      tree.Insert(root);
       tree.Insert(new Item(valueRight));
       tree.Insert(new Item(valueRightRight));
       tree.Insert(new Item(valueLeft));
@@ -311,7 +348,8 @@ namespace PatternSearch.Tests.Structures.Trees
       const int valueRightRight = 6;
       const int valueLeft = 1;
       var root = new Item(2);
-      var tree = new BinaryTree<Item>(root);
+      var tree = new BinaryTree<Item>();
+      tree.Insert(root);
       tree.Insert(new Item(valueRight));
       tree.Insert(new Item(valueRightRight));
       tree.Insert(new Item(valueLeft));
@@ -330,7 +368,8 @@ namespace PatternSearch.Tests.Structures.Trees
       const int valueRightRight = 6;
       const int valueLeft = 1;
       var root = new Item(2);
-      var tree = new BinaryTree<Item>(root);
+      var tree = new BinaryTree<Item>();
+      tree.Insert(root);
       tree.Insert(new Item(valueRight));
       tree.Insert(new Item(valueRightRight));
       tree.Insert(new Item(valueLeft));
@@ -349,7 +388,8 @@ namespace PatternSearch.Tests.Structures.Trees
       const int valueRightRight = 6;
       const int valueLeft = 1;
       var root = new Item(2);
-      var tree = new BinaryTree<Item>(root);
+      var tree = new BinaryTree<Item>();
+      tree.Insert(root);
       tree.Insert(new Item(valueRight));
       tree.Insert(new Item(valueRightRight));
       tree.Insert(new Item(valueLeft));
@@ -368,7 +408,8 @@ namespace PatternSearch.Tests.Structures.Trees
       const int valueRightRight = 6;
       const int valueLeft = 1;
       var root = new Item(2);
-      var tree = new BinaryTree<Item>(root);
+      var tree = new BinaryTree<Item>();
+      tree.Insert(root);
       tree.Insert(new Item(valueRight));
       tree.Insert(new Item(valueRightRight));
       tree.Insert(new Item(valueLeft));
@@ -387,7 +428,8 @@ namespace PatternSearch.Tests.Structures.Trees
       const int valueRightRight = 6;
       const int valueLeft = 1;
       var root = new Item(2);
-      var tree = new BinaryTree<Item>(root);
+      var tree = new BinaryTree<Item>();
+      tree.Insert(root);
       tree.Insert(new Item(valueRight));
       tree.Insert(new Item(valueRightRight));
       tree.Insert(new Item(valueLeft));
@@ -402,7 +444,8 @@ namespace PatternSearch.Tests.Structures.Trees
     public void Find_NullValue_ThrowArgumentNullException()
     {
       var root = new Item();
-      var tree = new BinaryTree<Item>(root);
+      var tree = new BinaryTree<Item>();
+      tree.Insert(root);
 
       Assert.Throws<ArgumentNullException>(() => tree.Find(null));
     }
@@ -412,7 +455,8 @@ namespace PatternSearch.Tests.Structures.Trees
     {
       const int value = 2;
       var root = new Item(value);
-      var tree = new BinaryTree<Item>(root);
+      var tree = new BinaryTree<Item>();
+      tree.Insert(root);
 
       var result = tree.Find(new Item(value));
 
@@ -424,7 +468,8 @@ namespace PatternSearch.Tests.Structures.Trees
     {
       const int value = 2;
       var root = new Item(1);
-      var tree = new BinaryTree<Item>(root);
+      var tree = new BinaryTree<Item>();
+      tree.Insert(root);
 
       var result = tree.Find(new Item(value));
 
@@ -436,7 +481,8 @@ namespace PatternSearch.Tests.Structures.Trees
     {
       const int value = 5;
       var root = new Item(2);
-      var tree = new BinaryTree<Item>(root);
+      var tree = new BinaryTree<Item>();
+      tree.Insert(root);
       tree.Insert(new Item(1));
       tree.Insert(new Item(3));
 
@@ -450,7 +496,8 @@ namespace PatternSearch.Tests.Structures.Trees
     {
       const int value = 1;
       var root = new Item(2);
-      var tree = new BinaryTree<Item>(root);
+      var tree = new BinaryTree<Item>();
+      tree.Insert(root);
       tree.Insert(new Item(value));
       tree.Insert(new Item(3));
 
@@ -464,7 +511,8 @@ namespace PatternSearch.Tests.Structures.Trees
     {
       const int value = 3;
       var root = new Item(2);
-      var tree = new BinaryTree<Item>(root);
+      var tree = new BinaryTree<Item>();
+      tree.Insert(root);
       tree.Insert(new Item(1));
       tree.Insert(new Item(value));
 
