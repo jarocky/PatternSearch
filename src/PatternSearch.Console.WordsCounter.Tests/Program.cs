@@ -11,7 +11,7 @@ namespace PatternSearch.Console.WordsCounter.Tests
     static void Main(string[] args)
     {
       var encoder = new ByteStringEncoder();
-      var hashingArray = new HashingArray(new HashingService(256, 1003),1003);
+      var hashingArray = new HashingArray(new HashingService(256, 100000003), 100000003);
 
       FileStream stream = File.OpenRead(@"..\doc\pan_wolodyjowski_line.t");
       int myByte;

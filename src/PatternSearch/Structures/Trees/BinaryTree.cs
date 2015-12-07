@@ -2,7 +2,7 @@
 
 namespace PatternSearch.Structures.Trees
 {
-  public class BinaryTree<T> where T : class, IComparable<T>
+  public class BinaryTree<T> where T : IComparable<T>, new()
   {
     protected internal Node<T> Root { get; protected set; }
 

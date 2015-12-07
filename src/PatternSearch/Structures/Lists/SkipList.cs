@@ -1,15 +1,20 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using PatternSearch.Common;
 
 namespace PatternSearch.Structures.Lists
 {
-  public class SkipList<T> where T : class, IComparable<T>
+  public class SkipList<T> where T : IComparable<T>, new()
   {
     private Item<T> _leftHead = new Item<T>(0);
     private readonly IRandomWrapper _random;
     private int _levels = 0;
 
     internal Item<T> LeftHead { get { return _leftHead; } }
+
+    public SkipList() : this(new RandomWrapper())
+    {
+    } 
 
     public SkipList(IRandomWrapper random)
     {
@@ -23,6 +28,13 @@ namespace PatternSearch.Structures.Lists
 
     public int Insert(T value)
     {
+      var comparisonsCount = 0;
+      if (_levels == 0 && _leftHead.Next == null)
+      {
+        _leftHead.Next = new Item<T>(value, 0);
+        return comparisonsCount;
+      }
+
       var level = 0;
       for (int r = _random.Next(); (r & 1) == 1; r >>= 1)
       {
@@ -35,21 +47,20 @@ namespace PatternSearch.Structures.Lists
       }
 
       var leftHeadCurrent = _leftHead;
+      var newItem = new Item<T>(value, level);
       if (_leftHead.Level < _levels)
       {
         leftHeadCurrent = new Item<T>(_levels) { Down = _leftHead };
       }
 
-      var newItem = new Item<T>(value, level);
       var cur = leftHeadCurrent;
-      var comparisonsCount = 0;
       for (var currentLevel = _levels; currentLevel >= 0; currentLevel--)
       {
         comparisonsCount++;
-        while (cur.Next != null || (cur.Next != null && cur.Next.Value.CompareTo(value) < 0))
+        while (cur.Next != null && cur.Next.Value.CompareTo(value) <= 0)
         {
           comparisonsCount++;
-          if (cur.Next != null && cur.Next.Value.CompareTo(value) == 0)
+          if (cur.Next.Value.CompareTo(value) == 0)
           {
             return comparisonsCount;
           }
@@ -60,15 +71,11 @@ namespace PatternSearch.Structures.Lists
 
         if (currentLevel == level)
         {
-          if (cur.Next == null)
-          {
-            cur.Next = newItem;
-          }
-          else
+          if (cur.Next != null)
           {
             newItem.Next = cur.Next.Next;
-            cur.Next = newItem;
           }
+          cur.Next = newItem;
           break;
         }
 
@@ -78,14 +85,31 @@ namespace PatternSearch.Structures.Lists
       comparisonsCount++;
       while (cur.Level > 0)
       {
-        cur.Next.Down = new Item<T>(cur.Next.Value, cur.Level - 1);
-        comparisonsCount++;
-        if (cur.Down.Next != null)
-        {
-          cur.Next.Down.Next = cur.Down.Next;
-        }
-        cur.Down.Next = cur.Next.Down;
+        var levelNewItem = new Item<T>(value, cur.Level - 1);
+        cur.Next.Down = levelNewItem;
         cur = cur.Down;
+        comparisonsCount++;
+        while (cur.Next != null && cur.Next.Value.CompareTo(value) <= 0)
+        {
+          comparisonsCount++;
+          if (cur.Next.Value.CompareTo(value) == 0)
+          {
+            return comparisonsCount;
+          }
+
+          cur = cur.Next;
+          comparisonsCount++;
+        }
+
+        comparisonsCount++;
+        Item<T> curNextNext = null;
+        if (cur.Next != null)
+        {
+          curNextNext = cur.Next;
+        }
+        cur.Next = levelNewItem;
+        levelNewItem.Next = curNextNext;
+        
         comparisonsCount++;
       }
 
@@ -137,22 +161,27 @@ namespace PatternSearch.Structures.Lists
     private Tuple<Item<T>, int> FindItemWithNextEqual(T value)
     {
       var cur = _leftHead;
-      var comparisonsCount = 1;
-      while (cur.Level >= 0 && cur.Next != null && cur.Next.Value.CompareTo(value) <= 0)
+      var comparisonsCount = 0;
+      while (cur.Level >= 0)
       {
         comparisonsCount++;
-        if (cur.Next.Value.CompareTo(value) == 0)
+        while (cur.Next != null && cur.Next.Value.CompareTo(value) <= 0)
         {
-          return new Tuple<Item<T>, int>(cur, comparisonsCount);
+          comparisonsCount++;
+          if (cur.Next.Value.CompareTo(value) == 0)
+          {
+            return new Tuple<Item<T>, int>(cur, comparisonsCount);
+          }
+          cur = cur.Next;
+          comparisonsCount++;
         }
 
-        comparisonsCount++;
-        if (cur.Next.Value.CompareTo(value) < 0)
+        if (cur.Down == null)
         {
-          cur = cur.Down;
+          break;
         }
 
-        comparisonsCount++;
+        cur = cur.Down;
       }
 
       return new Tuple<Item<T>, int>(null, comparisonsCount);

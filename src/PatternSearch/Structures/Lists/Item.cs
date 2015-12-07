@@ -29,5 +29,10 @@ namespace PatternSearch.Structures.Lists
       Value = value;
       Level = level;
     }
+
+    public int CompareTo(T other)
+    {
+      throw new NotImplementedException();
+    }
   }
 }
