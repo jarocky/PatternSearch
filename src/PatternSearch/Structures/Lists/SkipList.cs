@@ -73,7 +73,7 @@ namespace PatternSearch.Structures.Lists
         {
           if (cur.Next != null)
           {
-            newItem.Next = cur.Next.Next;
+            newItem.Next = cur.Next;
           }
           cur.Next = newItem;
           break;
