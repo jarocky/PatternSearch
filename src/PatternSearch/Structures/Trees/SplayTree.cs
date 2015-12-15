@@ -2,7 +2,7 @@
 
 namespace PatternSearch.Structures.Trees
 {
-  public class BinaryTree<T> where T : IComparable<T>
+  public class SplayTree<T> where T : IComparable<T>
   {
     protected internal Node<T> Root { get; protected set; }
 
@@ -26,6 +26,7 @@ namespace PatternSearch.Structures.Trees
         comparisons++;
         if (value.CompareTo(currentNode.Value) == 0)
         {
+          comparisons += Splay(currentNode);
           break;
         }
 
@@ -36,6 +37,7 @@ namespace PatternSearch.Structures.Trees
           if (currentNode.Right == null)
           {
             currentNode.Right = new Node<T>(value);
+            comparisons += Splay(currentNode.Right);
             break;
           }
           
@@ -46,7 +48,8 @@ namespace PatternSearch.Structures.Trees
           comparisons++;
           if (currentNode.Left == null)
           {
-            currentNode.Left = new Node<T>(value); 
+            currentNode.Left = new Node<T>(value);
+            comparisons += Splay(currentNode.Left);
             break;
           }
 
@@ -71,6 +74,8 @@ namespace PatternSearch.Structures.Trees
       {
         return comparisons;
       }
+
+      comparisons += Splay(nodeToDelete);
 
       if (nodeToDelete.Right != null)
       {
@@ -101,21 +106,6 @@ namespace PatternSearch.Structures.Trees
         nodeToDelete.Left = nodeToDelete.Left.Left;
         nodeToDelete.Right = nodeLeftRight;
       }
-      else if(nodeToDelete.Parent != null)
-      {
-        comparisons++;
-        comparisons++;
-        comparisons++;
-        comparisons++;
-        if (nodeToDelete.Parent.Right == nodeToDelete)
-        {
-          nodeToDelete.Parent.Right = null;
-        }
-        else
-        {
-          nodeToDelete.Parent.Left = null;
-        }
-      }
       else
       {
         throw new InvalidOperationException("Root cannot be deleted");
@@ -143,9 +133,11 @@ namespace PatternSearch.Structures.Trees
         comparisons++;
         if (value.CompareTo(currentNode.Value) == 0)
         {
+          comparisons += Splay(currentNode);
+
           return new OperationResult<Node<T>>
           {
-            Result = currentNode, 
+            Result = currentNode,
             ComparisonsCount = comparisons
           };
         }
@@ -180,6 +172,11 @@ namespace PatternSearch.Structures.Trees
         Result = null,
         ComparisonsCount = comparisons
       };
+    }
+
+    private int Splay(Node<T> node)
+    {
+      return 0;
     }
   }
 }

@@ -65,6 +65,7 @@
     <Compile Include="Structures\Suffix\SuffixTree.cs" />
     <Compile Include="Structures\Trees\BinaryTree.cs" />
     <Compile Include="Structures\Trees\Node.cs" />
+    <Compile Include="Structures\Trees\SplayTree.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PatternSearch.Common\PatternSearch.Common.csproj">
