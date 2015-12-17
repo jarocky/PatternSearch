@@ -137,7 +137,7 @@ namespace PatternSearch.Structures.Trees
 
           return new OperationResult<Node<T>>
           {
-            Result = currentNode,
+            Result = Root,
             ComparisonsCount = comparisons
           };
         }
@@ -231,6 +231,9 @@ namespace PatternSearch.Structures.Trees
 
         comparisons++;
       }
+
+      Root = currentNode;
+
       return comparisons;
     }
   }
