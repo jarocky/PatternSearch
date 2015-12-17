@@ -62,6 +62,7 @@
     <Compile Include="Structures\Lists\SkipListTests.cs" />
     <Compile Include="Structures\Suffix\SuffixArrayTests.cs" />
     <Compile Include="Structures\Suffix\SuffixTreeTests.cs" />
+    <Compile Include="Structures\Trees\SpleyTreeTests.cs" />
     <Compile Include="Structures\Trees\BinaryTreeTests.cs" />
     <Compile Include="Structures\Trees\NodeTests.cs" />
   </ItemGroup>
