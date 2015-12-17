@@ -131,7 +131,10 @@ namespace PatternSearch.Structures.Lists
       comparisonsCount++;
       for (var i = item.Level; i >= 0; i--)
       {
-        item.Next = item.Next.Next;
+        if (item.Next != null)
+        {
+          item.Next = item.Next.Next;  
+        }
         comparisonsCount++;
       }
 

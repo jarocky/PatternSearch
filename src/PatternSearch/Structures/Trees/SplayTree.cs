@@ -176,7 +176,62 @@ namespace PatternSearch.Structures.Trees
 
     private int Splay(Node<T> node)
     {
-      return 0;
+      var currentNode = node;
+      var comparisons = 1;
+      while (currentNode.Parent != null)
+      {
+        var currentParent = currentNode.Parent;
+        var currentParentParrent = currentNode.Parent.Parent;
+        
+        comparisons++;
+        if (currentParent.Right == currentNode)
+        {
+          var currentNodeForCheckLeft = currentNode;
+          comparisons++;
+          while (currentNodeForCheckLeft.Left != null)
+          {
+            currentNodeForCheckLeft = currentNodeForCheckLeft.Left;
+            comparisons++;
+          }
+
+          currentNodeForCheckLeft.Left = currentParent;
+          currentParent.Right = null;
+        }
+        else
+        {
+          var currentNodeForCheckRight = currentNode;
+          comparisons++;
+          while (currentNodeForCheckRight.Right != null)
+          {
+            currentNodeForCheckRight = currentNodeForCheckRight.Right;
+            comparisons++;
+          }
+
+          currentNodeForCheckRight.Right = currentParent;
+          currentParent.Left = null;
+        }
+        
+        comparisons++;
+        if (currentParentParrent != null)
+        {
+          comparisons++;
+          if (currentParentParrent.Right == currentParent)
+          {
+            currentParentParrent.Right = currentNode;
+          }
+          else
+          {
+            currentParentParrent.Left = currentNode;
+          }
+        }
+        else
+        {
+          currentNode.Parent = null;
+        }
+
+        comparisons++;
+      }
+      return comparisons;
     }
   }
 }

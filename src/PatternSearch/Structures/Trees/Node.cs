@@ -4,24 +4,11 @@ namespace PatternSearch.Structures.Trees
 {
   public class Node<T> : IComparable<Node<T>> where T : IComparable<T>
   {
-    private Node<T> _parent; 
     private Node<T> _left; 
     private Node<T> _right; 
     private T _value;
 
-    public Node<T> Parent
-    {
-      get { return _parent; }
-      private set
-      {
-        if (value == null)
-        {
-          throw new InvalidOperationException("Parrent node cannot be null");
-        }
-
-        _parent = value;
-      }
-    }
+    public Node<T> Parent { get; internal set; }
 
     public Node<T> Left
     {
@@ -68,7 +55,7 @@ namespace PatternSearch.Structures.Trees
     public Node(T value)
     {
       Value = value;
-      _parent = null;
+      Parent = null;
     }
 
     public int CompareTo(Node<T> other)

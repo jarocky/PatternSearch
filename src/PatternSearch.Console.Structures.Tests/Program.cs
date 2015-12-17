@@ -54,15 +54,15 @@ namespace PatternSearch.Console.Structures.Tests
       return skipList;
     }
 
-    public static BinaryTree<int> InsertIntoTree(List<int> list)
+    public static SplayTree<int> InsertIntoTree(List<int> list)
     {
-      var tree = new BinaryTree<int>();
+      var tree = new SplayTree<int>();
       var comparisons = 0;
       foreach (var n in list)
       {
         comparisons += tree.Insert(n);
       }
-      System.Console.Out.WriteLine("Tree");
+      System.Console.Out.WriteLine("Splay Tree");
       System.Console.Out.WriteLine("Insert");
       System.Console.Out.WriteLine("Comparisons: {0}", comparisons);
       return tree;
