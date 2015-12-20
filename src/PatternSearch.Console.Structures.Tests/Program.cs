@@ -12,28 +12,34 @@ namespace PatternSearch.Console.Structures.Tests
     {
       var operationTimeTester = new OperationTimeTester();
 
-      var list = new List<int>() {19, 29, 1, 23, 43, 3, 6, 8, 12, 9};
+      var list = new List<int>() {554, 842, 5, 73, 19, 29, 23, 43, 3, 6, 8, 12, 9, 42, 22, 123, 2, 444, 53, 555, 77, 31, 676, 66, 232, 98, 99, 44, 47, 110, 230, 1009, 999, 87, 84, 333, 332, 1004, 1007, 1006, 1009, 1008 };
+      var list2 = new List<int>();
+      for (int i = 1; i < 10000; i++)
+      {
+        list2.Add(i);
+      }
+      list = list2;
 
       var resultSkipListInsert = operationTimeTester.Test(InsertIntoSkipList, list);
       System.Console.Out.WriteLine("Elapsed: {0}", resultSkipListInsert.Elapsed);
-      var resultSkipListFind = operationTimeTester.Test(resultSkipListInsert.OperationResult.Find, 12);
+      var resultSkipListFind = operationTimeTester.Test(resultSkipListInsert.OperationResult.Find, 123);
       System.Console.Out.WriteLine("Find result: {0}", resultSkipListFind.OperationResult.Result);
       System.Console.Out.WriteLine("Comparisons: {0}", resultSkipListFind.OperationResult.ComparisonsCount);
       System.Console.Out.WriteLine("Elapsed: {0}", resultSkipListFind.Elapsed);
       System.Console.Out.WriteLine("Remove");
-      var resultSkipListRemove = operationTimeTester.Test(resultSkipListInsert.OperationResult.Remove, 12);
+      var resultSkipListRemove = operationTimeTester.Test(resultSkipListInsert.OperationResult.Remove, 123);
       System.Console.Out.WriteLine("Comparisons: {0}", resultSkipListRemove.OperationResult);
       System.Console.Out.WriteLine("Elapsed: {0}", resultSkipListRemove.Elapsed);
       System.Console.Out.WriteLine();
       System.Console.Out.WriteLine();
       var resultTreeInsert = operationTimeTester.Test(InsertIntoTree, list);
       System.Console.Out.WriteLine("Elapsed: {0}", resultTreeInsert.Elapsed);
-      var resultTreeFind = operationTimeTester.Test(resultTreeInsert.OperationResult.Find, 12);
-      System.Console.Out.WriteLine("Find result: {0}", resultTreeFind.OperationResult.Result.Value == 12);
+      var resultTreeFind = operationTimeTester.Test(resultTreeInsert.OperationResult.Find, 123);
+      System.Console.Out.WriteLine("Find result: {0}", resultTreeFind.OperationResult.Result.Value == 123);
       System.Console.Out.WriteLine("Comparisons: {0}", resultTreeFind.OperationResult.ComparisonsCount);
       System.Console.Out.WriteLine("Elapsed: {0}", resultTreeFind.Elapsed);
       System.Console.Out.WriteLine("Remove");
-      var resultTreeRemove = operationTimeTester.Test(resultTreeInsert.OperationResult.Remove, 12);
+      var resultTreeRemove = operationTimeTester.Test(resultTreeInsert.OperationResult.Remove, 123);
       System.Console.Out.WriteLine("Comparisons: {0}", resultTreeRemove.OperationResult);
       System.Console.Out.WriteLine("Elapsed: {0}", resultTreeRemove.Elapsed);
 
